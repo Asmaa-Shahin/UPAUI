@@ -1,0 +1,116 @@
+<div class="row" [dir]="textDir">
+  <div class="col-3">
+    <img src="../../../../assets/images/world.png" style="margin-top: 50px;" alt="inpatient" width="150" height="250" />
+  </div>
+  <div class="col-9">
+    <div class="row">
+      <div class="col-9"
+        [ngStyle]="lang =='en' ? {'font-size': '30px','color': '#1683c2','font-weight': 'bold'} : {  'font-size': '30px','color': '#1683c2','font-weight': 'bold','margin-left': '120px'}">
+        {{ 'UPA.AddGovernorate' | translate }}</div>
+    </div>
+
+    <form class="form-horizontal" (ngSubmit)="onSubmit()" #form="ngForm">
+      <div class="row top-buffer">
+        <div class="col-12">
+          <label for="code" [translate]="'UPA.Code'"></label>
+          <input type="text" class="form-control" pTooltip="Enter name" tooltipPosition="bottom"
+            [(ngModel)]="govObj.code" name="code" required #code="ngModel"
+            [class.is-invalid]="(code.touched && code.errors) || form.submitted"
+            [class.is-valid]="code.valid && form.submitted" />
+          <div *ngIf="(code.touched || form.submitted) && code.errors?.required">
+            <span class="text-danger">
+              {{ 'UPA.Code' | translate }} {{ 'UPA.Required' | translate }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row top-buffer">
+        <div class="col-12">
+          <label for="name" [translate]="'UPA.Name'"></label>
+          <input type="text" class="form-control" pTooltip="Enter name" tooltipPosition="bottom"
+            [(ngModel)]="govObj.name" name="orgname" required #name="ngModel"
+            [class.is-invalid]="(name.touched && name.errors) || form.submitted"
+            [class.is-valid]="name.valid && form.submitted" />
+          <div *ngIf="(name.touched || form.submitted) && name.errors?.required">
+            <span class="text-danger">
+              {{ 'UPA.Name' | translate }} {{ 'UPA.Required' | translate }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="row top-buffer">
+        <div class="col-12">
+          <label for="nameAr" [translate]="'UPA.ArabicName'"></label>
+          <input type="text" class="form-control" pTooltip="Enter arabic name" tooltipPosition="bottom" name="nameAr"
+            [(ngModel)]="govObj.nameAr" />
+
+        </div>
+      </div>
+
+
+      <div class="row top-buffer">
+        <div class="col-12">
+          <label for="population" [translate]="'UPA.Population'"></label>
+          <input type="text" class="form-control" pTooltip="Enter name" tooltipPosition="bottom"
+            [(ngModel)]="govObj.population" name="population" #population="ngModel" />
+
+        </div>
+      </div>
+
+
+
+      <div class=" row top-buffer">
+        <div class="col-12">
+          <label for="area" [translate]="'UPA.Area'"></label>
+          <input type="text" class="form-control" pTooltip="Enter area" tooltipPosition="bottom"
+            [(ngModel)]="govObj.area" name="area" #area="ngModel" />
+
+        </div>
+      </div>
+
+
+
+      <div class="row top-buffer">
+        <div class="col-md-12">
+
+
+          <button class="btn btn-primary pull-center btn-sm" value="Save" type="submit"
+            style="margin:0px 5px;background-color: #1483c2;border-color: #1483c2"> {{ 'UPA.Save' | translate
+            }}</button>
+          <button mat-button (click)="reset()" class="btn btn-primary pull-center btn-sm"
+            style="margin: 0px 5px;background-color: #fe7f83 !important;border-color:#fe7f83"> {{ 'UPA.Reset' |
+            translate }}</button>
+
+
+
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+  <ng-template pTemplate="header">
+    <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;"> {{ 'UPA.Save' | translate }}</h6>
+  </ng-template>
+  <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'UPA.SavedSuccess' | translate
+    }}</span>
+</p-dialog>
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+  <p-header style="color: rgb(181, 4, 4)"> {{ 'UPA.Error' | translate }} </p-header>
+  <span style="color: rgb(181, 4, 4); font-weight: bold">
+    {{ errorMessage }}</span>
+</p-dialog>

@@ -1,0 +1,140 @@
+<!-- <button mat-button [matMenuTriggerFor]="animals">Animal index</button>
+
+<mat-menu #animals="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>
+</mat-menu>
+
+<mat-menu #vertebrates="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="fish">Fishes</button>
+  <button mat-menu-item>Amphibians</button>
+  <button mat-menu-item>Reptiles</button>
+  <button mat-menu-item>Birds</button>
+  <button mat-menu-item>Mammals</button>
+</mat-menu>
+
+<mat-menu #fish="matMenu">
+  <button mat-menu-item>Baikal oilfish</button>
+  <button mat-menu-item>Bala shark</button>
+  <button mat-menu-item>Ballan wrasse</button>
+  <button mat-menu-item>Bamboo shark</button>
+  <button mat-menu-item>Banded killifish</button>
+</mat-menu> -->
+
+
+<!---------------->
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-4">
+                <h4 class="card-title"> {{ 'UPA.Geo' | translate}} </h4>
+            </div>
+            <div class="col row">
+                <div class="col-4" *ngIf="govnameAr !=='' || govname !== '' ">
+                    <label> {{'UPA.Governorate' | translate }} </label>
+                    <span style="padding: 8px ;margin: 8px ;background: #11375e; border-radius: 20px ;color:#fff;">
+                        {{lang=='ar'?govnameAr:govname}} </span>
+                </div>
+                <div class="col" *ngIf="hosnameAr !=='' || hosname !== '' ">
+                    <label> {{'UPA.Hospital' | translate }} </label>
+                    <span style="padding: 8px ;margin: 8px; background: #11375e; border-radius: 20px ;color:#fff;">
+                        {{lang=='ar'?hosnameAr:hosname}} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-carousel [value]="lstGovernorates" [showIndicators]="false" [numVisible]="7" [numScroll]="7" [circular]="true"
+        dir="ltr">
+        <ng-template let-item pTemplate="item">
+            <div (click)="getHospitalsByGovernorateId(item.id,item.name,item.nameAr)"
+                style="cursor: pointer; border-radius:35px;"
+                class="text-center hover align-items-center justify-content-center">
+                <div>
+                    <p style="font-size:20px ;">
+                        <img src="{{imgURL+item.logo}}" width="50" height="50"
+                            style="border-radius: 100%;border: 0;" /><br />
+                        {{lang=='ar'?item.nameAr:item.name}}
+                    </p>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+    <p-carousel *ngIf="showDiv1" [value]="lstHospitals" [showIndicators]="false" [numVisible]="7" [numScroll]="7"
+        [circular]="true" dir="ltr">
+        <ng-template let-item pTemplate="item">
+            <div class="card text-center " style="cursor: pointer; border-radius:35px;"
+                class="text-center hover align-items-center justify-content-center"
+                (click)="getAssetsByHosId(item.id,item.name,item.nameAr)">
+                <p style="font-size:16px ;"> {{lang=='ar'?item.nameAr:item.name}}</p>
+            </div>
+        </ng-template>
+    </p-carousel>
+    <div class="card" *ngIf="showDiv3">
+        <div class="card-list">
+            <div class="row">
+                <div class="col-12">
+                    <p-table [value]="lstAssets" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+                        responsiveLayout="scroll" [paginator]="true" [lazy]="true" [rows]="10" [totalRecords]="count"
+                        pageLinks="10" (onLazyLoad)="clicktbl($event)" [scrollable]="true" scrollHeight="270px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th [sortable]="true">{{ 'UPA.AssetName' | translate }}
+                                    <p-sortIcon id="{{ 'UPA.Name' | translate }}" (click)="sort($event)">
+                                    </p-sortIcon>
+                                </th>
+                                <th >{{ 'UPA.Barcode' | translate }}
+                                    <p-sortIcon id="{{ 'UPA.Barcode' | translate }}" (click)="sort($event)">
+                                    </p-sortIcon>
+                                </th>
+                                <th [sortable]="true">{{ 'UPA.Serial' | translate
+                                    }}
+                                    <p-sortIcon id="{{ 'UPA.Serial' | translate }}" (click)="sort($event)">
+                                    </p-sortIcon>
+                                </th>
+                                <th [sortable]="true">{{ 'UPA.Model' | translate }}
+                                    <p-sortIcon id="{{ 'UPA.Model' | translate }}" (click)="sort($event)">
+                                    </p-sortIcon>
+                                </th>
+
+                                <th [sortable]="true">{{ 'UPA.Brand' | translate }}
+                                    <p-sortIcon id="{{ 'UPA.Brand' | translate }}" (click)="sort($event)">
+                                    </p-sortIcon>
+                                </th>
+                                <th [sortable]="true">{{ 'UPA.Supplier' | translate }}
+                                    <p-sortIcon id="{{ 'UPA.Supplier' | translate }}" (click)="sort($event)">
+                                    </p-sortIcon>
+                                </th>
+                                <th [sortable]="true">{{ 'UPA.Hospital' | translate }}
+                                    <p-sortIcon id="{{ 'UPA.Hospital' | translate }}" (click)="sort($event)">
+                                    </p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td> {{lang=="en" ?item.assetName:item.assetNameAr}} </td>
+                                <td>{{item.barCode}}</td>
+                                <td>{{item.serialNumber}}</td>
+                                <td>{{item.model}}</td>
+                                <td>{{ lang=="en" ? item.brandName: item.brandNameAr}}</td>
+                                <td>{{ lang=="en" ? item.supplierName:item.supplierNameAr}}</td>
+                                <td>{{ lang=="en" ? item.hospitalName:item.hospitalNameAr}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

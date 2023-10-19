@@ -1,0 +1,139 @@
+<div class="card">
+    <div class="card-body">
+        <div class="col-12">
+            <form (ngSubmit)="EditForm.valid && onSubmit()" #EditForm="ngForm">
+
+                <div class="row top-buffer">
+                    <div class="col">
+                        <input type="text" class="form-control fieldCode"  pTooltip="{{'UPA.Code' | translate}}" tooltipPosition="left"
+                        id="code" name="code" [ngModel]="lang=='en'?hospitalObj.code:(+hospitalObj.code).toLocaleString('ar-SA',{  useGrouping: false })"
+                         #code="ngModel" readonly />
+                    </div>
+                </div> 
+                <div class="row titles">
+                    <hr class="col-5" >  
+                    <div class="col-2 cft"> {{ "UPA.BasicData" | translate }}</div>
+                    <hr class="col-5">  
+                  </div>
+                    <div class="row ">
+                        <div class="col-3">
+                            <label for="governorate" [translate]="'UPA.Governorate'"></label>
+                            <select class="form-control" id="governorateId" name="governorateId" #governorateId="ngModel"
+                                [(ngModel)]="hospitalObj.governorateId"  label="Age"
+                                (change)="getCitiesByGovId(hospitalObj.governorateId)">
+                                <option value="0"> </option>
+                                <option *ngFor="let gov of lstGovernorates" [value]="gov.id"
+                                    [selected]="gov.id == hospitalObj.governorateId">
+                                    {{lang == "en" ? gov.name:gov.nameAr}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label for="city" [translate]="'UPA.City'"></label>
+                            <select class="form-control" id="city" 
+                                name="city" #city="ngModel" [(ngModel)]="hospitalObj.cityId" [value]="0">
+                                <option value="0"> </option>
+                                <option *ngFor="let city of lstCities" [value]="city.id"
+                                    [selected]="city.id == hospitalObj.cityId">
+                                    {{lang == "en" ? city.name:city.nameAr}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label for="organization" [translate]="'UPA.Organization'"></label>
+                            <select class="form-control" id="organization" name="organization" (change)="getSubOrgByOrgId($event)"
+                                [value]="0" >
+                                <option value="0"></option>
+                                <option *ngFor="let org of lstOrganizations" [value]="org.id"
+                                    [selected]="org.id == hospitalObj.organizationId">
+                                    {{lang == "en" ? org.name:org.nameAr}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-3" >
+                            <label for="suborganization" [translate]="'UPA.SubOrganization'"></label>
+                            <select class="form-control" id="suborganizationId" name="suborganizationId"  [value]="0"
+                                [(ngModel)]="hospitalObj.subOrganizationId" #subOrganizationId="ngModel" >
+                                <option value="0" ></option>
+                                <option *ngFor="let suborg of lstSubOrganizations" [value]="suborg.id"
+                                    [selected]="suborg.id == hospitalObj.subOrganizationId">
+                                    {{lang == "en" ? suborg.name:suborg.nameAr}}
+                                </option>
+                            </select> 
+                        </div>
+
+                    </div>
+                    <div class="row top-buffer">
+                        <div class="col-6">
+                            <label for="name" [translate]="'UPA.Name'"></label>
+                            <input type="text" class="form-control" id="name" name="name"
+                            [(ngModel)]="hospitalObj.name" #name="ngModel" 
+                                [class.is-invalid]="name.touched && name.errors || EditForm.submitted"
+                                [class.is-valid]="name.valid && EditForm.submitted" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="nameAr" [translate]="'UPA.ArabicName'"></label>
+                            <input type="text" class="form-control" id="nameAr" name="nameAr"
+                                [(ngModel)]="hospitalObj.nameAr" #nameAr="ngModel" 
+                                [class.is-invalid]="nameAr.touched && nameAr.errors || EditForm.submitted"
+                                [class.is-valid]=" nameAr.valid && EditForm.submitted" required>
+                        </div>
+                    </div>
+                    <div class="row top-buffer"> </div>
+                    <div class="row titles">
+                        <hr class="col-5" >  
+                        <div class="col-2 cft"> {{ "UPA.Details" | translate }}</div>
+                        <hr class="col-5">  
+                      </div>
+                    <div class="row ">
+                        <div class="col-3">
+                            <label for="manager" [translate]="'UPA.Manager'"></label>
+                            <input type="text" class="form-control" id="manager" name="managerName" [(ngModel)]="hospitalObj.managerName" #managerName="ngModel">
+                        </div>
+                        <div class="col-3">
+                            <label for="manager" [translate]="'UPA.ArabicManager'"></label>
+                            <input type="text" class="form-control" id="manager" name="managerNameAr" [(ngModel)]="hospitalObj.managerNameAr" #managerNameAr="ngModel">
+                        </div>
+                        <div class="col-3">
+                            <label for="Email" [translate]="'UPA.EMail'"></label>
+                            <input type="text" class="form-control" id="Email" name="Email"  [(ngModel)]="hospitalObj.email" #Email="ngModel">
+                        </div>
+                        <div class="col-3">
+                            <label for="Mobile" [translate]="'UPA.Mobile'"></label>
+                            <input type="text" class="form-control" id="mobile" name="mobile" [(ngModel)]="hospitalObj.mobile" #mobile="ngModel">
+                        </div>
+                    </div>
+                    <div class="row top-buffer">
+                        <div class="col-6">
+                            <label for="address" [translate]="'UPA.Address'"></label>
+                            <textarea rows="1" class="form-control" id="address" name="address" [(ngModel)]="hospitalObj.address" #address="ngModel" ></textarea>
+                        </div>
+                        <div class="col-6">
+                            <label for="addressAr" [translate]="'UPA.ArabicAddress'"></label>
+                            <textarea  rows="1" class="form-control" id="addressAr" name="addressAr"[(ngModel)]="hospitalObj.addressAr" #addressAr="ngModel" ></textarea>
+                        </div>
+                      </div>
+                    <div class="row ">
+                        <div class="d-flex justify-content-center">
+                          <button class="btn btn-success" value="save" type="submit">
+                            {{ 'UPA.Save' | translate }}
+                          </button>
+                        </div>
+                      </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;"> {{ 'UPA.Save' | translate }}</h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'UPA.SavedSuccess' | translate }}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+    <p-header style="color: rgb(181, 4, 4)"> {{ 'UPA.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4); font-weight: bold">  {{ errorMessage }}</span>
+</p-dialog>

@@ -1,0 +1,25 @@
+.login-container {
+  max-width: 800px;
+  margin: 150px auto;
+  padding: 20px;
+  border: 4px solid #ccc;
+  border-radius: 35px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  background-color: #11375e;
+  color: #fffcf3;  
+}
+.form-group{
+margin-top: 15px;
+}
+.form-control{
+  background:#cccccc !important;
+  width: 400px;
+  color: #11375e !important;
+}
+.top-buffer{
+  margin-left: 130px;
+  margin-right: 130px;
+}
+.icon{
+  padding-top:15px ;
+}

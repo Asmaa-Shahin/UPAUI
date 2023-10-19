@@ -1,0 +1,94 @@
+<div class="card">
+    <div class="card-header cardHeader">
+        <h4 class="card-title" style="font-size: 30px;color: #1683c2;font-weight: bold;"> {{ 'UPA.ViewSupplier' |
+            translate}}</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <label for="code" [translate]="'UPA.Code'"> </label>
+                {{supplierObj.code}}
+            </div>
+            <div class="col-6">
+                <label for="email" [translate]="'UPA.EMail'"></label>
+                {{supplierObj.eMail}}
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-6">
+                <label for="name" [translate]="'UPA.Name'"></label>
+                {{supplierObj.name}}
+            </div>
+            <div class="col-6">
+                <label for="nameAr" [translate]="'UPA.ArabicName'"></label>
+                {{supplierObj.nameAr}}
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-6">
+                <label for="mobile" [translate]="'UPA.Mobile'"></label>
+                {{supplierObj.mobile}}
+            </div>
+            <div class="col-6">
+                <label for="website" [translate]="'UPA.Website'"></label>
+                {{supplierObj.website}}
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-6">
+                <label for="address" [translate]="'UPA.Address'"></label>
+                {{supplierObj.address}}
+            </div>
+            <div class="col-6">
+                <label for="addressAr" [translate]="'UPA.ArabicAddress'"></label>
+                {{supplierObj.addressAr}}
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-6">
+                <label for="contactPerson" [translate]="'UPA.ContactPerson'"></label>
+                {{supplierObj.contactPerson}}
+            </div>
+            <div class="col-6">
+                <label for="fax" [translate]="'UPA.Fax'"></label>
+                {{supplierObj.fax}}
+
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-12">
+                <label for="notes" [translate]="'UPA.Notes'"></label>
+                {{supplierObj.notes}}
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <table class="table table-bordered table-striped table-hover" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th> {{'UPA.Name' | translate }}</th>
+                        <th> {{'UPA.Title' | translate }}</th>
+                        <th style="text-align: center;"> {{'UPA.Download' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let doc of lstAllSupplierAttachments">
+                        <td>{{doc.fileName}}</td>
+                        <td>{{doc.title}}</td>
+                        <td style="text-align: center;">
+                            <a (click)="downloadFile(doc.fileName)" pTooltip="Download Files" tooltipPosition="bottom">
+                                <i class="fas fa fa-download" style="color: #61bb20;"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row top-buffer">
+            <div class="col-12">
+                <button class="btn btn-primary pull-center btn-sm" (click)="back()"
+                    style="margin: 0px 5px;background-color: #7e8083 !important;border-color:#7e8083">{{'UPA.Back'
+                    | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

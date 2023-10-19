@@ -1,0 +1,32 @@
+<div [dir]="textDir">
+
+  <div class="card">
+    <div class="card-header" style="height:60px;">
+      <h1 mat-dialog-title style="font-size: 23px;color: #1683c2;font-weight: bold;"
+        [ngStyle]="lang =='en' ? {'float': 'left'} : {  'float': 'right'}">{{'UPA.DeleteConfirmation' | translate}}
+      </h1><img src="../../../../assets/images/delete.jpg" width="40" height="40"
+        [ngStyle]="lang =='en' ? {'float': 'right','margin-top':'-5px'} : {  'float': 'left','margin-top':'-5px'}"
+        alt="delete">
+    </div>
+    <div class="card-body" style="height: 90px;text-align:center;font-size: 18px;">
+      <p>
+        {{'UPA.DeleteAlertMessage' | translate}} <b> {{name}}? </b></p>
+    </div>
+    <div class="card-footer" style="height: 50px; background-color: white;"
+      [ngStyle]="lang =='en' ? {'text-align': 'right'} : {  'text-align': 'left'}">
+
+      <button type="button" class="btn btn-outline-primary  btn-sm" style="margin: 0px 10px; margin-top: -5px;"
+        (click)="close()">{{'UPA.No' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger  btn-sm" style="margin: 0px 10px; margin-top: -5px;"
+        (click)="delete()" cdkFocusInitial>{{'UPA.Delete' | translate}}</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{width: '350px'}">
+  <p-header style="color: rgb(181, 4, 4);"> {{ 'UPA.Error' | translate }} </p-header>
+  <span style="color: rgb(181, 4, 4);font-weight: bold;"> {{errorMessage}}</span>
+</p-dialog>

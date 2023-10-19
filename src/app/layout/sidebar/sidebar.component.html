@@ -1,0 +1,19 @@
+<mat-sidenav-container autosize>
+    <!-- <mat-sidenav #sidenav mode="side" class="mat-elevation-z8"> -->
+        <!-- <img src="../../../assets/images/logo.png" width="200" height="200" style="margin-top:10px;" /> -->
+        <!-- <mat-nav-list class="mat-nav-list">
+            <mat-list-item [routerLink]="['/dash/dashboard']" [ngClass]="lang == 'en' ? 'linkcolor': 'linkcolorAr'">
+                <span>{{"UPA.DashBoard" | translate}}</span>
+            </mat-list-item>
+
+            <mat-list-item [routerLink]="['/dash/countingassets/create']" [ngClass]="lang == 'en' ? 'linkcolor': 'linkcolorAr'">
+                <span>{{"UPA.Create" | translate}}</span>
+            </mat-list-item>
+        </mat-nav-list> -->
+    <!-- </mat-sidenav> -->
+    <mat-sidenav-content class="content mat-elevation-z8">
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>

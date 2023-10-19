@@ -1,0 +1,131 @@
+<div class="card" >
+    <div class="card-body" style="background-color: #11375E; color:aliceblue; margin-top: 0;" >
+        <div class="row top-buffer" >
+            <div class="col-1 d-flex justify-content-center align-items-center"><label class="boldlabel " for="governorate" [translate]="'UPA.Governorate'"></label></div>
+
+            <div class="col-11" >
+                <p-carousel [value]="lstGovernorates"  [showIndicators]="false" [numVisible]="6"
+                    [numScroll]="1" [circular]="true" dir="ltr">
+                    <ng-template let-item let-i="index" pTemplate="item" id="parent_id">
+                        <div id="{{item.id}}" class="text-center hover d-flex align-items-center justify-content-center"
+                            style="cursor: pointer; width: 150px;height: 95px;  border-radius:15px; margin-right:10px; margin-left: 10px;"
+                            (click)="getGovernorateName(item.id,item.name,item.nameAr)">
+                            <div >
+                                <h6>
+                                    <img src="{{imgURL+item.logo}}" width="50" height="50"
+                                        style="border-radius: 100px;border: 0; margin-top: 5px;" />
+                                    <br />
+                                    {{lang=='ar'?item.nameAr:item.name}}
+                                </h6>
+                            </div>
+                        </div>
+
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div>
+        <hr style=" margin-top: 10px; margin-bottom: 10px;"/>
+       
+        <div class="row ">
+            <div class="col-1 d-flex justify-content-center align-items-center">
+                <label class="boldlabel "  for="organization" [translate]="'UPA.Organization'"></label>
+            </div>
+            <div class="col-11">
+                <p-carousel [value]="lstOrganizations"  [showIndicators]="false" [numVisible]="8"
+                [numScroll]="1" [circular]="true" dir="ltr">
+                <ng-template let-item  pTemplate="item" >
+                    <div id="org{{item.id}}"  class="text-center hover d-flex align-items-center justify-content-center"
+                        style="cursor: pointer;  width: 150px;height: 95px; border-radius:15px; margin-right:10px; margin-left: 10px;"
+                        (click)="getOrganizationName(item.id,item.name,item.nameAr)">
+                        <div >
+                            <h6>
+                                <img *ngIf="item.logo != null" src="{{imgOrgURL+item.logo}}" width="50" height="50" 
+                                    style="border-radius: 100px;border: 0; margin-top: 5px;" />
+                                <br />
+                                {{lang=='ar'?item.nameAr:item.name}}
+                            </h6>
+                        </div>
+                    </div>
+
+                </ng-template>
+            </p-carousel>
+            </div>
+        </div>  
+        <hr style=" margin-top: 10px; margin-bottom: 10px;"/>
+
+        <div class="row">
+            <div class="col-1 d-flex justify-content-center align-items-center">
+                    <label class="boldlabel " for="brand" [translate]="'UPA.Brand'"></label>
+            </div>
+            <div class="col-11">
+                <p-carousel [value]="lstBrands"  [showIndicators]="false" [numVisible]="8" [numScroll]="1"
+                    [circular]="true" dir="ltr">
+                    <ng-template let-item pTemplate="item">
+                        <div id="brnd{{item.id}}" class=" text-center hover d-flex align-items-center justify-content-center"
+                            style="cursor: pointer; width: 150px;height: 50px;border-radius:15px; margin-right:10px; margin-left: 10px;"
+                            (click)="getBrandName(item.id,item.name,item.nameAr)">
+                            <div >
+                                <label class="boldlabeldiv">
+                                    {{lang=='ar'?item.nameAr:item.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div>  
+        <hr style=" margin-top: 10px; margin-bottom: 10px;"/>
+        <div class="row top-buffer">
+            <div class="col-1 d-flex justify-content-center align-items-center">
+                <label class="boldlabel" for="category" [translate]="'UPA.Category'"></label>
+            </div>
+            <div class="col-11">
+                <p-carousel [value]="lstCategories"  [showIndicators]="false" [numVisible]="8"
+                    [numScroll]="1" [circular]="true" dir="ltr">
+                    <ng-template let-item pTemplate="item">
+                        <div id="cat{{item.id}}"
+                            class="text-center hover d-flex align-items-center justify-content-center"
+                            style="cursor: pointer; width: 150px;height: 50px; border-radius:15px; margin-right:10px; margin-left: 10px;"
+                            (click)="getCategoryName(item.id,item.name,item.nameAr)">
+                            <div >
+                                <label class="boldlabeldiv">
+                                    {{lang=='ar'?item.nameAr:item.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div>   
+        <hr style=" margin-top: 10px; margin-bottom: 10px;"/>
+        <div class="row " >
+            <div class="col-1 d-flex justify-content-center align-items-center">
+                <label  class="boldlabel "  for="count" [translate]="'UPA.Count'"></label></div>
+
+            <div class="col-8 ">
+                <input type="number" class="form-control" style=" height: 40px; font-size: 26px; color: #11375E; width: 100px;  border-radius: 10px;  " [(ngModel)]="addCountOfAssetObj.count" id="count" name="count"
+                    min="1">
+            </div>
+
+            <div class="col-3 ">
+                <button type="button" class="btn btn-success " style="width: 220px;  height: 50px; font-size: 22px; "
+                    (click)="saveCountOfAsset()">{{'UPA.Save' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+    <p-dialog appendTo="body" modal="true" [(visible)]="display"   [style]="{width: '350px'}"  #dialog>
+        <ng-template pTemplate="header">
+            <h6 style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'UPA.Save' | translate }}
+            </h6>
+        </ng-template>
+        <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'UPA.SavedSuccess' |
+            translate }}</span>
+    </p-dialog>
+
+    <p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }"
+        [ngStyle]="{'direction': lang == 'en' ? 'ltr': 'rtl'}">
+        <p-header style="color: rgb(181, 4, 4)"> {{ 'UPA.Error' | translate }} </p-header>
+        <span style="color: rgb(181, 4, 4); font-weight: bold">
+            {{ errorMessage }}</span>
+    </p-dialog>

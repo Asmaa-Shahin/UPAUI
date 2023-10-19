@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-11">
+        <h4 class="card-title"> {{ 'UPA.CatGovernorate' | translate}}</h4>
+      </div>
+      <div class="col-1"> <button class="btn exportIcon" (click)=" generateExcel()">
+        <i class="fa-solid fa-download fa-beat fa-xl"></i></button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="card-body">
+    <div class="row ">
+      <div class="col-6">
+        <ng-multiselect-dropdown appendTo="body" [placeholder]="'UPA.Brand'|translate" [settings]="dropdownSettings"
+          [data]="lstBrands" [(ngModel)]="selectedBrandItems" (onSelect)="onBrandSelect($event)"
+          (onSelectAll)="onBrandSelectAll($event)" (onDeSelect)="onBrandDeselect($event)"
+          (onDeSelectAll)="onBrandDeselectAll($event)">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-6">
+        <ng-multiselect-dropdown appendTo="body" [placeholder]="'UPA.Organization'|translate"
+          [settings]="dropdownSettings" [data]="lstOrganization" [(ngModel)]="selectedOrgItems"
+          (onSelect)="onOrgSelect($event)" (onSelectAll)="onOrgSelectAll($event)" (onDeSelect)="onOrgDeselect($event)"
+          (onDeSelectAll)="onOrgDeselectAll($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+  </div>
+  <div class="card-list">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <!-- Plan type. -->
+          </th>
+          <th *ngFor="let gov of lstGovernorates">
+            <div class="rotated-th">
+              <span class="rotated-th__label"> {{ lang == "en" ? gov.name : gov.nameAr }}</span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr scope="row" *ngFor="let cat of lstCategories">
+          <th> {{ lang == "en" ? cat.name : cat.nameAr }} </th>
+          <td *ngFor="let gov of lstGovernorates">
+            <span *ngFor="let match of findMatch(gov, cat)" style="font-size: 16px;">
+              {{ match.count > 0 ? match.count : 0 }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

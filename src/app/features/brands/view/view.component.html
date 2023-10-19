@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-header cardHeader">
+        <h4 class="card-title" style="font-size: 30px;color: #1683c2;font-weight: bold;"> {{ 'UPA.View' | translate
+            }} {{ 'UPA.Brand' | translate }} </h4>
+    </div>
+    <div class="card-body">
+        <div class="row top-buffer">
+            <div class="col-2">
+                <label for="code" [translate]="'UPA.Code'"> </label>
+                {{lang =='en' ? brandObj.code: (+brandObj.code).toLocaleString("ar-SA")}}
+            </div>
+            <div class="col-5">
+                <label for="name" [translate]="'UPA.Name'"></label>
+                {{brandObj.name}}
+            </div>
+            <div class="col-5">
+                <label for="nameAr" [translate]="'UPA.ArabicName'"></label>
+                {{brandObj.nameAr}}
+            </div>
+
+        </div>
+        <div class="row top-buffer">
+            <div class="col-12">
+                <button class="btn btn-primary pull-center btn-sm" (click)="back()"
+                    style="margin: 0px 5px;background-color: #7e8083 !important;border-color:#7e8083">{{'UPA.Back'
+                    | translate}}</button>
+            </div>
+        </div>
+
+    </div>
+</div>

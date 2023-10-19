@@ -1,0 +1,149 @@
+<!-- <div>
+    <input type="button" value="{{'UPA.Print'|  translate}}" (click)="convetToPDF()" id="non-printable" />
+</div> -->
+
+<div id="contentToConvert" id="printable">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row " style="justify-content: space-between;">
+                <div class="col card-subTitle">{{ 'UPA.Identification' | translate }} </div>
+                <div class="col-1 fieldCode form-control "  >
+                {{lang == "en" ? assetObj.barCode:(+assetObj.barCode).toLocaleString('ar-SA',{  useGrouping: false })}}
+            </div>
+            </div>
+            <div class="row ">
+                <div class="col-6">
+                    <label for="assetName"> {{ 'UPA.Name' | translate }} : </label> {{lang == "en" ?
+                    assetObj.assetName:assetObj.assetNameAr}}
+                </div>
+                <div class="col-4">
+                    <label for="serialNumber">{{'UPA.Serial' | translate }} : </label>
+                    {{assetObj.serialNumber}}
+
+                </div>
+                <div class="col-2">
+                    <img src="{{imgURL}}" width="100" height="100" name="assetImg" id="assetImg" />
+                </div>
+            </div>
+            <div class="row " style="margin-top: -70px;">
+                <div class="col-6">
+                    <label for="hospitalId"> {{ 'UPA.Hospital' | translate }} : </label> {{ lang == "en" ?
+                    assetObj.hospitalName:assetObj.hospitalNameAr}}
+                </div>
+                <div class="col-6">
+                    <label for="governorateId"> {{ 'UPA.Governorate' | translate }} : </label> {{ lang == "en" ?
+                    assetObj.governorateName:assetObj.governorateNameAr}}
+                </div>
+            </div>
+            <div class="row">
+                <!-- <div class="col-4">
+                    <label for="cityId"> {{ 'UPA.City' | translate }} : </label> {{ lang == "en" ?
+                    assetObj.cityName:assetObj.cityNameAr}}
+                </div> -->
+                <div class="col-6">
+                    <label for="organizationId"> {{ 'UPA.Organization' | translate }} : </label> {{ lang == "en" ?
+                    assetObj.orgName:assetObj.orgNameAr}}
+                </div>
+                <div class="col-6">
+                    <label for="subOrgId"> {{ 'UPA.SubOrganization' | translate }} : </label> {{ lang == "en" ?
+                    assetObj.subOrgName:assetObj.subOrgNameAr}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row top-buffer">
+    </div>
+
+    <div class="top-buffer">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-subTitle"> {{'UPA.Purchase' | translate }} </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for=""> {{ 'UPA.Purchase' | translate }} : </label>
+                        {{lang == "en" ? assetObj.purchaseDate:(+assetObj.purchaseDate).toLocaleString('ar-SA')}}
+
+                    </div>
+                    <div class="col-4">
+                        <label for="install"> {{ 'UPA.InstallationDate' | translate}} : </label>
+                         {{assetObj.installationDate}}
+
+                    </div>
+
+                    <div class="col-4" >
+                        <label for=""> {{ 'UPA.Price' | translate }} : </label>
+                        {{lang == "en" ? assetObj.price:(+assetObj.price).toLocaleString('ar-SA')}}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="top-buffer">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-subTitle"> {{ 'UPA.Brand' | translate }}</h3>
+                <div class="row ">
+                    <div class="col-4">
+                        <label for=""> {{ 'UPA.Model' | translate }} : </label> {{ assetObj.modelNumber}}
+                    </div>
+                    <div class="col-4">
+                        <label for=""> {{ 'UPA.Version' | translate }} : </label> {{ assetObj.versionNumber}}
+                    </div>
+
+                    <div class="col-4">
+                        <label for=""> {{ 'UPA.Brand' | translate }} : </label> {{ assetObj.brandName}}
+                    </div>
+
+                </div>
+                <div class="row ">
+                    <div class="col-4">
+                        <label for=""> {{ 'UPA.Supplier' | translate }} : </label> {{ lang== "en"? assetObj.supplierName
+                        :assetObj.supplierNameAr}}
+                    </div>
+                    <div class="col-4">
+                        <label for="origin"> {{ 'UPA.Origin' | translate }} : </label> {{ lang== "en"?
+                        assetObj.originName: assetObj.originNameAr}}
+                    </div>
+
+                    <div class="col-4">
+                        <label for="remarks">{{ 'UPA.Remarks' | translate }} : </label> {{assetObj.remarks}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col card-subTitle"> {{'UPA.Attachments' | translate }} </div>
+                    <div class="col" *ngIf="lstAttachment.length == 0">{{'UPA.NoData' | translate }} </div>
+
+                </div>
+                <table class="table table-striped" *ngIf="lstAttachment.length != 0">
+                    <thead>
+                        <tr>
+                            <th [translate]="'UPA.Id'"> {{ 'UPA.Id' | translate }}</th>
+                            <th [translate]="'UPA.FileName'"> {{ 'UPA.FileName' | translate }}</th>
+                            <th [translate]="'UPA.FileName'"> {{ 'UPA.Title' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of lstAttachment">
+                            <td>{{item.id}}</td>
+                            <td>{{item.fileName}}</td>
+                            <td>{{item.title}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

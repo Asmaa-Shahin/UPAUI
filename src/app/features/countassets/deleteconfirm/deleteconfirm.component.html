@@ -1,0 +1,23 @@
+<div [dir]="textDir">
+
+  <div class="card" style=" background-color: #11375e !important; color: white;">
+
+    <div class="card-body" style="height: 90px;text-align:center;font-size: 18px; border: 0 !important;">
+      <p>
+        {{'UPA.DeleteAlertMessage' | translate}}
+        <br/>
+         <b> {{governorateName}} - {{organizationName}} - {{brandName}} - {{categoryName}} ? </b></p>
+    </div>
+    <div class="card-footer d-flex justify-content-center align-items-center" style="height: 50px; background-color: white;"
+     >
+
+      <button type="button" class="btn  btn-success  btn-sm" style="margin: 0px 5px;width: 100px; "
+        (click)="close()">{{'UPA.No' | translate}}</button>
+      <button type="button" class="btn btn-danger  btn-sm" style="margin: 0px 5px;width: 100px;"
+        (click)="delete()" cdkFocusInitial>{{'UPA.Delete' | translate}}</button>
+    </div>
+  </div>
+</div>
+
+
+  

@@ -1,0 +1,223 @@
+<div class="card">
+  <div class="card-body">
+    <form #AddAssetForm="ngForm">
+      <div class="row top-buffer">
+        <div class="col-6">
+          <input type="text" class="form-control fieldCode" id="code" name="code" #code="ngModel"
+           pTooltip="{{'UPA.Code' | translate}}" tooltipPosition="left" 
+           [(ngModel)]="masterAssetObj.code"/>
+        </div>
+
+        <!-- [(ngModel)]="lang=='en'?masterAssetObj.code:(+masterAssetObj.code).toLocaleString('ar-SA',{  useGrouping: false })" -->
+          
+      </div>
+      <div class="row titles">
+        <hr class="col-5">
+        <div class="col-2 cft"> {{ "UPA.BasicData" | translate }}</div>
+        <hr class="col-5">
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <label for="ecriId" [translate]="'UPA.ECRI'"></label>
+          <select class="form-control" id="ecriId" name="ecriId" #ecriId="ngModel" [(ngModel)]="masterAssetObj.ecriId">
+            <option selected [value]="null"> </option>
+            <option *ngFor="let ecri of lstECRIs" [value]="ecri.id">
+              {{ lang == "en" ? ecri.name : ecri.nameAr }}
+            </option>
+          </select>
+        </div>
+        <div class="col-3">
+          <label for="name" [translate]="'UPA.Name'"></label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="masterAssetObj.name"
+            #name="ngModel" [class.is-invalid]="
+                  (name.touched && name.errors) || AddAssetForm.submitted
+                " [class.is-valid]="name.valid && AddAssetForm.submitted" autofocus required />
+        </div>
+        <div class="col-3">
+          <label for="nameAr" [translate]="'UPA.ArabicName'"></label>
+          <input type="text" class="form-control" id="nameAr" name="nameAr" #nameAr="ngModel"
+            [(ngModel)]="masterAssetObj.nameAr" autofocus required [class.is-invalid]="(nameAr.touched && nameAr.errors) || AddAssetForm.submitted
+                " [class.is-valid]="nameAr.valid && AddAssetForm.submitted" />
+        </div>
+        <div class="row col-3">
+          <label for="upFile" [translate]="'UPA.AssetImage'" style="margin-top: 8px !important;"></label>
+          <div class="col-3 ">
+            <label for="upFile" class="btn btn-secondary btn-sm "> <i class="pi pi-upload"></i></label>
+          </div>
+          <div class="col-3 "> <input id="upFile" style="visibility:hidden;" type="file"
+              class="form-control file-input " (change)="onFileSelected($event)" #fileUpload />
+          </div>
+
+          <div class="col-4 " style="margin-top: -15px;" *ngIf="imagePath.includes('png') || imagePath.includes('jpg') || imagePath.includes('jpeg')">
+            <img src="{{imagePath}}" width="70" height="70" [hidden]="imgVisible" />
+          </div>
+          <div class="col-1 ">
+            <button type="button" class="btn btn-sm" (click)="resetFile()" [hidden]="btnHidden">
+              <i class="pi pi-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <label for="brandId" [translate]="'UPA.Brand'"></label>
+        
+          <select class="form-control" id="brandId" #brandId="ngModel" name="brandId"
+            [(ngModel)]="masterAssetObj.brandId" [value]="0">
+            <option selected value="null"> </option>
+            <option *ngFor="let brand of lstBrands" [value]="brand.id"> {{ lang == "en" ? brand.name : brand.nameAr }} </option>
+          </select>
+
+        </div>
+
+        <div class="col-3">
+          <label for="modelNumber" [translate]="'UPA.ModelNumber'"></label>
+          <input type="text" pInputText id="modelNumber" class="form-control" [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="masterAssetObj.modelNumber" />
+        </div>
+        <div class="col-3">
+          <label for="versionNumber" [translate]="'UPA.Version'"></label>
+          <input type="text" pInputText id="versionNumber" class="form-control" [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="masterAssetObj.versionNumber" />
+        </div>
+        <div class="col-3">
+          <label for="origin" [translate]="'UPA.Origin'"></label>
+          <select class="form-control" id="origin" #origin="ngModel" name="origin"
+            [(ngModel)]="masterAssetObj.originId">
+            <option selected value="null"> </option>
+            <option *ngFor="let orgn of lstOrigins" [value]="orgn.id">
+              {{ orgn.code }} - {{ lang == "en" ? orgn.name : orgn.nameAr }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row top-buffer"></div>
+
+      <div class="row titles">
+        <hr class="col-5">
+        <div class="col-2 cft"> {{ "UPA.Details" | translate }}</div>
+        <hr class="col-5">
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <label for="category" [translate]="'UPA.Category'"></label>
+          <select class="form-control" id="category" name="category" #category="ngModel" [value]="null"
+            [(ngModel)]="masterAssetObj.categoryId" (change)="GetSubCategoryByCategoryId($event)">
+            <option value="null"> </option>
+            <option *ngFor="let cat of lstCategories" [value]="cat.id">
+              {{ lang == "en" ? cat.name : cat.nameAr }}
+            </option>
+          </select>
+        </div>
+        <div class="col-3">
+          <label for="subCategory" [translate]="'UPA.SubCategory'"></label>
+          <select class="form-control" id="subCategory" name="subCategory" #subCategory="ngModel" [value]="null"
+            [(ngModel)]="masterAssetObj.subCategoryId">
+            <option value="null"> </option>
+            <option *ngFor="let sub of lstSubCategories" [value]="sub.id"> {{ lang == "en" ? sub.name : sub.nameAr }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col row">
+          <label for="priority" [translate]="'UPA.Periority'" style="margin-top: 8px !important;"></label>
+          <mat-radio-group [(ngModel)]="radioPerioritySelected" (change)="getSelecteditem()"
+            [ngModelOptions]="{ standalone: true }">
+            <mat-radio-button color="primary" value="{{item.id}}" name="priority{{i}}"
+              *ngFor="let item of lstPeriorities; let i = index">
+              <div style="font-size: 20px; color:#11375e;;"> {{ lang == "en" ? item.name : item.nameAr }}</div>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+      </div>
+      <div class="row top-buffer">
+        <div class="col-3">
+          <label for="description" [translate]="'UPA.Description'"></label>
+          <textarea rows="1" type="text" class="form-control" id="description" name="description"
+            [(ngModel)]="masterAssetObj.description" #description="ngModel"></textarea>
+        </div>
+        <div class="col-3">
+          <label for="descriptionAr" [translate]="'UPA.ArabicDescription'"></label>
+          <textarea rows="1" type="text" class="form-control" id="descriptionAr" name="descriptionAr"
+            #descriptionAr="ngModel" [(ngModel)]="masterAssetObj.descriptionAr"></textarea>
+        </div>
+
+        <div class="col-3">
+          <label for="title" [translate]="'UPA.SelectUploadFile'"></label>
+          <input #title="ngModel" class="form-control" type="text" name="title"
+            [(ngModel)]="masterAssetDocument.title" />
+          <input type="file" #file (change)="uploadFile(file.files)" style="display: none" />
+        </div>
+
+        <div class="col-1" style="margin-top: 35px !important;">
+          <button type="button" class="btn btn-secondary btn-sm" (click)="file.click()">
+            <i class="pi pi-upload"></i>
+          </button>
+        </div>
+
+      </div>
+      <div class="col row">
+        <table class="table" *ngIf="lstMasterAssetDocuments.length != 0">
+          <thead>
+            <tr>
+              <th>{{ "UPA.FileName" | translate }}</th>
+              <th>{{ "UPA.Title" | translate }}</th>
+              <th>{{ "UPA.Actions" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of lstMasterAssetDocuments">
+              <td>{{ i.fileName }}</td>
+              <td>{{ i.title }}</td>
+              <td>
+                <span (click)="removeFileFromObjectArray(i)"><i class="pi pi-times"
+                    style="color: rgb(123, 9, 9);"></i></span>
+              </td>
+            </tr>
+          </tbody>
+          <footer *ngIf="lstMasterAssetDocuments.length == 0">
+            <tr>
+              <td colspan="3"> {{ 'UPA.NoData' | translate }} </td>
+            </tr>
+          </footer>
+        </table>
+      </div>
+      <div class="row">
+        <div class="d-flex justify-content-center">
+          <button type="submit" (click)="onSubmit()" class="btn btn-success " value="save"> {{ "UPA.Save" | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+<p-dialog appendTo="body" modal="true" [(visible)]="savedfilesdisplay">
+  <ng-template pTemplate="header">
+    <h6 style="color: #04527e; font-weight: bold; font-size: 16pt">
+      {{ "UPA.Save" | translate }}
+    </h6>
+  </ng-template>
+  <span style="color: green; font-weight: bold; font-size: 12pt; text-align: center">{{ "UPA.SavedFiles" | translate
+    }}</span>
+</p-dialog>
+
+<p-dialog  (onHide)="onDialogClose()" appendTo="body" modal="true" [(visible)]="display" [style]="{ width: '350px' }">
+  <ng-template pTemplate="header">
+    <h6 [translate]="''" style="color: #04527e; font-weight: bold; font-size: 16pt">
+      {{ "UPA.Save" | translate }}
+    </h6>
+  </ng-template>
+  <span style="color: green; font-weight: bold; font-size: 12pt; text-align: center">
+    {{ "UPA.SavedSuccess" | translate }}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+  <p-header style="color: rgb(181, 4, 4)">
+    {{ "UPA.Error" | translate }}
+  </p-header>
+  <span style="color: rgb(181, 4, 4); font-weight: bold">
+    {{ errorMessage }}</span>
+</p-dialog>

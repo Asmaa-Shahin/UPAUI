@@ -1,0 +1,15 @@
+
+<h4 class="card-title mt-4" style="color: #11375E ;">{{lang == "en" ? "Population census according to governorates" : "التعداد السكانى طبقا للمحافظات"}}</h4>
+
+<div id="chart">
+    <apx-chart
+      [series]="triangleChartOptions.series!"
+      [chart]="triangleChartOptions.chart!"
+      [dataLabels]="triangleChartOptions.dataLabels!"
+      [plotOptions]="triangleChartOptions.plotOptions!"
+      [xaxis]="triangleChartOptions.xaxis!"
+      [colors]="triangleChartOptions.colors!"
+      [title]="triangleChartOptions.title!"
+      [legend]="triangleChartOptions.legend!"
+    ></apx-chart>
+  </div>

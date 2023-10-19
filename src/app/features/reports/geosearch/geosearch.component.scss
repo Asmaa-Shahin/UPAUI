@@ -1,0 +1,31 @@
+
+
+
+
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+
+
+
+
+
+
+
+
+
+
+.hover:hover{
+    background-color: #D7DDE3;
+   
+   }
+   
+   .hover{
+       transition: background-color 1s;
+       
+   }
+   #pr_id_4 .p-carousel-item {
+    flex: 1 0 14.285714285714286%;
+    align-items: center !important;
+    display: flex !important;
+}

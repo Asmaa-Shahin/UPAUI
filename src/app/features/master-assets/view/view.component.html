@@ -1,0 +1,111 @@
+<div class="card">
+    <div class="card-body">
+        <div class="col card-subTitle"> {{'UPA.Identification' | translate }} </div>
+
+        <div class="row ">
+
+            <div class="col-8 ">
+                <div class="col">
+                    <label for="masterCode"> {{ 'UPA.Code' | translate }} : </label>
+                    {{lang == "en" ? masterAssetObj.code:(+masterAssetObj.code).toLocaleString('ar-SA',{  useGrouping: false })}}
+
+                </div>
+                <div class="col">
+                    <label for="name"> {{ 'UPA.Name' | translate }} : </label>
+                    {{lang == "en" ? masterAssetObj.name:masterAssetObj.nameAr}}
+                </div>
+                <div class="col">
+                    <label for="ecriId"> {{ 'UPA.ECRI' | translate }} : </label>
+                    {{lang == "en" ? masterAssetObj.ecriName:masterAssetObj.ecriNameAr}}
+                </div>
+            </div>
+            <div class="col-4">
+                <img src="{{imgURL}}" width="100" height="100" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row top-buffer"></div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="col card-subTitle"> {{'UPA.Industry' | translate }} </div>
+        <div class="row ">
+            <div class="col-4">
+                <label for="category"> {{ 'UPA.Category' | translate }} : </label>
+                {{lang == "en" ? masterAssetObj.categoryName:masterAssetObj.categoryNameAr}}
+            </div>
+            <div class="col-4">
+                <label for="subCategory"> {{ 'UPA.SubCategory' | translate }} : </label>
+                {{lang == "en" ? masterAssetObj.subCategoryName:masterAssetObj.subCategoryNameAr}}
+            </div>
+
+            <div class="col-4">
+                <label for="priority"> {{ 'UPA.Periority' | translate }} : </label>
+                {{lang == "en" ? masterAssetObj.periorityName:masterAssetObj.periorityNameAr}}
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-4">
+                <label for="manufacturer"> {{ 'UPA.Brand' | translate }} : </label>
+                {{lang == "en" ? masterAssetObj.brandName:masterAssetObj.brandNameAr}}
+            </div>
+            <div class="col-4">
+                <label for="origin"> {{ 'UPA.Origin' | translate }} : </label>
+
+                {{lang == "en" ? masterAssetObj.originName:masterAssetObj.originNameAr}}
+            </div>
+            <div class="col-4">
+                <label for="modelNumber"> {{ 'UPA.Model' | translate }} : </label>
+                {{masterAssetObj.modelNumber}}
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-4">
+                <label for="versionNumber"> {{ 'UPA.Version' | translate }} : </label>
+                {{masterAssetObj.versionNumber}}
+            </div>
+
+            <div class="col-4">
+                <label for="description"> {{ 'UPA.Description' | translate }} : </label>
+                {{masterAssetObj.description}}
+            </div>
+            <div class="col-4">
+                <label for="descriptionAr"> {{ 'UPA.ArabicDescription' | translate }} : </label>
+                {{masterAssetObj.descriptionAr}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row top-buffer"></div>
+<div class="row ">
+    <div class="card">
+        <div class="card-body">
+            <div class="row top-buffer">
+                <div class="col card-subTitle"> {{'UPA.Attachments' | translate }} </div>
+                <div class="col" *ngIf="lstAttachment.length == 0">{{'UPA.NoData' | translate }} </div>
+            </div>
+            <table class="table table-striped" *ngIf="lstAttachment.length != 0">
+                <thead>
+                    <tr>
+                        <th>{{'UPA.Id' | translate }}</th>
+                        <th>{{'UPA.FileName' | translate }}</th>
+                        <th>{{'UPA.Title' | translate }}</th>
+                        <th>{{'UPA.Download' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of lstAttachment">
+                        <td>{{item.id}}</td>
+                        <td> {{item.fileName}}</td>
+                        <td> {{item.title}}</td>
+                        <td style="cursor: pointer;text-align: center;" pTooltip="Download File" tooltipPosition="top">
+                            <a (click)="downloadFile(item.fileName)"><i class="pi pi-download"
+                                    style="color: #61bb20;"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

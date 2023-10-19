@@ -1,0 +1,80 @@
+<div class="card">
+    <div class="card-header cardHeader">
+        <h4 class="card-title" style="font-size: 30px;color: #1683c2;font-weight: bold;"> {{ 'UPA.Edit' | translate
+            }} {{ 'UPA.Origin' | translate }} </h4>
+    </div>
+    <div class="card-body">
+
+        <form #form="ngForm" (ngSubmit)="onSubmit()">
+
+
+            <div class="row top-buffer">
+
+                <div class="col-2">
+                    <label for="code" [translate]="'UPA.Code'"> </label>
+                    <input type="text" class="form-control" id="code" name="code" pTooltip="Enter A Origin code"
+                        [placeholder]="'UPA.Code' | translate" tooltipPosition="bottom" [(ngModel)]="originObj.code"
+                        #code="ngModel" [class.is-invalid]="
+          (code.touched && code.errors) || form.submitted" [class.is-valid]="code.valid && form.submitted" required />
+                    <div *ngIf="(code.touched || form.submitted) && code.errors?.required">
+                        <span class="text-danger"> {{ 'UPA.Code' | translate }} {{ 'UPA.Required' |
+                            translate}}</span>
+                    </div>
+
+                </div>
+                <div class="col-5">
+
+
+                    <label for="name" [translate]="'UPA.Name'"></label>
+                    <input type="text" #name="ngModel" [class.is-invalid]="name.invalid && name.touched"
+                        [class.is-valid]="name.valid" [(ngModel)]="originObj.name" name="name" id="name"
+                        class="form-control" [placeholder]="'UPA.Name' | translate" required>
+                    <div *ngIf="(name.touched || form.submitted) && name.errors?.required">
+                        <span class="text-danger"> {{ 'UPA.Name' | translate }} {{ 'UPA.Required' |
+                            translate}}</span>
+                    </div>
+                </div>
+
+
+                <div class="col-5">
+
+
+                    <label for="nameAr" [translate]="'UPA.ArabicName'"></label>
+                    <input type="text" #nameAr="ngModel" [class.is-invalid]="nameAr.invalid && nameAr.touched"
+                        [class.is-valid]="nameAr.valid" [(ngModel)]="originObj.nameAr" name="nameAr" id="nameAr"
+                        class="form-control" [placeholder]="'UPA.ArabicName' | translate" required>
+                    <div *ngIf="(nameAr.touched || form.submitted) && nameAr.errors?.required">
+                        <span class="text-danger"> {{ 'UPA.ArabicName' | translate }} {{ 'UPA.Required' |
+                            translate}}</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row top-buffer">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary pull-center btn-sm"
+                        [translate]="'UPA.Save'"></button>
+
+                    <!-- <button class="btn btn-primary pull-center btn-sm" (click)="back()"
+            style="margin: 0px 5px;background-color: #7e8083 !important;border-color:#7e8083">Back</button> -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'UPA.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'UPA.SavedSuccess' |
+        translate }}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+    <p-header style="color: rgb(181, 4, 4)"> {{ 'UPA.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4); font-weight: bold">
+        {{ errorMessage }}</span>
+</p-dialog>

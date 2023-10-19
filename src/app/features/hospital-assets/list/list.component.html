@@ -1,0 +1,148 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-2">
+
+                <h4 class="card-title"> {{ 'UPA.HospitalAssets' | translate }} </h4>
+            </div>
+           
+
+             <div class="col-1"> <button class="btn exportIcon" (click)="generateExcel()"><i
+                        class="fa-solid fa-download fa-beat fa-lg"></i></button>
+            </div>
+             <div class="col-7"></div>
+                       <div class="col-2">
+                <a (click)="addAsset()" [ngClass]="lang == 'en' ? 'hrefbutton': 'hrefbuttonAr'"> {{'UPA.Add'|translate
+                    }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-list">
+        <p-table #dt styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines" showGridlines="true"
+            [value]="lstAssets" [paginator]="true" [lazy]="true" [rows]="10" [totalRecords]="count" pageLinks="10"
+            (onLazyLoad)="clicktbl($event)" dataKey="id" [rowHover]="true" >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th></th>
+                    <th [sortable]="true">
+                        <ng-multiselect-dropdown appendTo="body" [placeholder]="'UPA.Governorate'|translate"
+                            [settings]="dropdownSettings" [data]="lstGovernorates" [(ngModel)]="selectedItems"
+                            (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                            (onDeSelect)="onItemDeselect($event)" (onDeSelectAll)="onDeselectAll($event)">
+                        </ng-multiselect-dropdown>
+                    </th>
+                    <th [sortable]="true"> <ng-multiselect-dropdown appendTo="body"
+                            [placeholder]="'UPA.Hospital'|translate" [settings]="dropdownSettings" [data]="lstHosp"
+                            [(ngModel)]="selectedHospitalItems" (onSelect)="onHospitalSelect($event)"
+                            (onSelectAll)="onHospitalSelectAll($event)" (onDeSelect)="onHospitalDeselect($event)"
+                            (onDeSelectAll)="onHospitalDeselectAll($event)">
+                        </ng-multiselect-dropdown></th>
+                    <th [sortable]="true"> <ng-multiselect-dropdown appendTo="body"
+                            [placeholder]="'UPA.Category'|translate" [settings]="dropdownSettings"
+                            [data]="lstCategories" [(ngModel)]="selectedCategoryItems"
+                            (onSelect)="onCategorySelect($event)" (onSelectAll)="onCategorySelectAll($event)"
+                            (onDeSelect)="onCategoryDeselect($event)" (onDeSelectAll)="onCategoryDeselectAll($event)">
+                        </ng-multiselect-dropdown> </th>
+                    <th [sortable]="true"><ng-multiselect-dropdown class="custom-dropdown-width"
+                            [placeholder]="'UPA.Name'|translate" [settings]="dropdownSettingsName" [data]="lstAssets2"
+                            [(ngModel)]="selectedNameItems" (onSelect)="onNameSelect($event)"
+                            (onSelectAll)="onNameSelectAll($event)" (onDeSelect)="onNameDeselect($event)"
+                            (onDeSelectAll)="onNameDeselectAll($event)">
+                        </ng-multiselect-dropdown></th>
+
+                    <th [sortable]="true"> <ng-multiselect-dropdown appendTo="body"
+                            [placeholder]="'UPA.Brand'|translate" [settings]="dropdownSettings" [data]="lstBrands"
+                            [(ngModel)]="selectedBrandItems" (onSelect)="onBrandSelect($event)"
+                            (onSelectAll)="onBrandSelectAll($event)" (onDeSelect)="onBrandDeselect($event)"
+                            (onDeSelectAll)="onBrandDeselectAll($event)">
+                        </ng-multiselect-dropdown> </th>
+                    <th [sortable]="true"> <ng-multiselect-dropdown appendTo="body"
+                            [placeholder]="'UPA.Model'|translate" [settings]="dropdownSettingsModel"
+                            [data]="lstMasterAssets5" [(ngModel)]="selectedModelItems"
+                            (onSelect)="onModelSelect($event)" (onSelectAll)="onModelSelectAll($event)"
+                            (onDeSelect)="onModelDeselect($event)" (onDeSelectAll)="onModelDeselectAll($event)">
+                        </ng-multiselect-dropdown></th>
+                    <th>
+                        <div class="custom-background">
+                            <mat-form-field>
+                                <mat-label class="text-center">Enter a date range</mat-label>
+                                <mat-date-range-input [rangePicker]="picker">
+                                    <input matStartDate placeholder="Start date" [(ngModel)]="startDate"
+                                        (dateChange)="onStartDateChange($event)">
+                                    <input matEndDate placeholder="End date" [(ngModel)]="endDate"
+                                        (dateChange)="onEndDateChange($event)">
+                                </mat-date-range-input>
+                                <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-date-range-picker #picker></mat-date-range-picker>
+                            </mat-form-field>
+                        </div>
+
+                    </th>
+                    <th [sortable]="true"> <ng-multiselect-dropdown appendTo="body"
+                            [placeholder]="'UPA.SubCategory'|translate" [settings]="dropdownSettings" [data]="lstSubCat"
+                            [(ngModel)]="selectedSubCategoryItems" (onSelect)="onSubCategorySelect($event)"
+                            (onSelectAll)="onSubCategorySelectAll($event)" (onDeSelect)="onSubCategoryDeselect($event)"
+                            (onDeSelectAll)="onSubCategoryDeselectAll($event)">
+                        </ng-multiselect-dropdown> </th>
+
+
+                <th> <div >
+                        <a class="btn resetIcon" (click)="  clearSearch()">
+                            <i class="fa-solid fa-x "></i></a>
+                    </div></th>
+                </tr>
+                <tr>
+                    <th><input type="checkbox" [(ngModel)]="selectAll" (ngModelChange)="selectAllItems($event)"
+                            (change)="getAllHosEcxel($event)"></th>
+                    <th [sortable]="true">{{'UPA.Governorate' |translate}} <p-sortIcon
+                            id="{{'UPA.Governorate' | translate}}" (click)="sortAfterSearch($event)"
+                            style="cursor: pointer;"> </p-sortIcon></th>
+                    <th [sortable]="true">{{'UPA.Hospital'|translate}} <p-sortIcon id="{{'UPA.Hospital' | translate}}"
+                            (click)="sortAfterSearch($event)" style="cursor: pointer;"> </p-sortIcon></th>
+                    <th [sortable]="true">{{'UPA.Category'|translate}} <p-sortIcon id="{{'UPA.Category' | translate}}"
+                            (click)="sortAfterSearch($event)" style="cursor: pointer;"> </p-sortIcon></th>
+                    <th [sortable]="true">{{'UPA.AssetName'|translate}} <p-sortIcon id="{{'UPA.AssetName' | translate}}"
+                            (click)="sortAfterSearch($event)" style="cursor: pointer;"> </p-sortIcon></th>
+                    <th [sortable]="true">{{'UPA.Brand'|translate}} <p-sortIcon id="{{'UPA.Brand' | translate}}"
+                            (click)="sortAfterSearch($event)" style="cursor: pointer;"> </p-sortIcon></th>
+                    <th [sortable]="true">{{'UPA.Model'|translate}} <p-sortIcon id="{{'UPA.Model' | translate}}"
+                            (click)="sortAfterSearch($event)" style="cursor: pointer;"> </p-sortIcon></th>
+                    <th [sortable]="true">{{'UPA.InstallationDate'|translate}} <p-sortIcon
+                            id="{{'UPA.InstallationDate' | translate}}" (click)="sortAfterSearch($event)"
+                            style="cursor: pointer;"> </p-sortIcon></th>
+                    <th [sortable]="true">{{'UPA.SubCategory'|translate}} <p-sortIcon
+                            id="{{'UPA.SubCategory' | translate}}" (click)="sortAfterSearch($event)"
+                            style="cursor: pointer;"> </p-sortIcon></th>
+                    <th>{{'UPA.Actions'|translate}} </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td><input (change)="onCheckboxChange($event, item)" [checked]="isSelected(item)"
+                            class="checkbox-input" type="checkbox" style="background-color: aqua; color: aqua;"
+                            [value]="item.id"></td>
+
+                    <td>{{lang=="en" ? item.governorateName:item.governorateNameAr}}</td>
+                    <td>{{lang=="en" ? item.hospitalName:item.hospitalNameAr}}</td>
+                    <td>{{ lang=="en" ? item.categoryName:item.categoryNameAr }}</td>
+                    <td>{{ lang=="en" ?item.assetName:item.assetNameAr }}</td>
+                    <td>{{ lang=="en" ?item.brandName:item.brandNameAr }}</td>
+                    <td>{{ item.model }}</td>
+                    <td>{{ item.installationDate | date:"yyyy-MM-dd"}}</td>
+                    <td>{{ lang=="en"?item.subCatName :item.subCatNameAr}}</td>
+                    <td>
+                        <span (click)="viewAsset(item.id)" pTooltip="{{'UPA.View' | translate}}" tooltipPosition="top">
+                            <i class="viewIcon pi pi-eye"></i> </span>
+                        <span (click)="editAsset(item.id)" pTooltip="{{'UPA.Edit' | translate}}" tooltipPosition="top">
+                            <i class="editIcon pi pi-file-edit"></i> </span>
+                        <span (click)="deleteAsset(item.id)" pTooltip="{{'UPA.Delete' | translate}}"
+                            tooltipPosition="top">
+                            <i class="deleteIcon pi pi-trash"></i> </span>
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+</div>

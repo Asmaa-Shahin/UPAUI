@@ -1,0 +1,27 @@
+<div class="login-container justify-content-center align-items-center">
+
+  <div style=" text-align: center;">
+    <img src="assets/images/mos.jpg" style=" border-radius: 10%; border:3px solid #9e9a9a ; margin-bottom: 20px;"
+      alt="UPA Management Sysytem" width="100" height="100">
+  </div>
+  <form (ngSubmit)="form.valid && login()" #form="ngForm">
+
+   
+      <div class="row top-buffer">
+        <div class="col"> <i class="icon pi pi-user"></i></div>
+        <div class="col"> <input type="userName" class="form-control" id="userName"
+            [ngModelOptions]="{standalone: true}" [(ngModel)]="loggingUserObj.userName" placeholder="Username"></div>
+      </div>
+      <div class="row top-buffer ">
+        <div class="col"> <i class="icon pi pi-lock"></i></div>
+        <div class="col"> <input type="password" class="form-control" [ngModelOptions]="{standalone: true}"
+            id="password" placeholder="Password" [(ngModel)]="loggingUserObj.password"></div>
+      </div>
+    <div class="text-danger text-center">{{displayerror}}</div>
+    <div class="row">
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-danger">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>

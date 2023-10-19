@@ -1,0 +1,40 @@
+.mat-list {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.mat-list-base .mat-list-item.mat-list-item {
+  display: initial;
+  width: auto;
+}
+.btnclicked:focus {
+  background-color: #ffebcd;
+}
+
+.form-check-inline .form-check-input {
+  position: static;
+  margin-top: 0;
+  margin-right: 0.3125rem;
+  margin-left: 10px;
+}
+.custom-calendar-popup .p-datepicker-calendar {
+  width: 300px; /* Set your desired width here */
+  height: 200px; /* Set your desired height here */
+  z-index: 10000000;
+}
+.custom-background {
+  background-color:transparent !important;
+  color: black;
+}
+.mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+  background-color: black !important;
+}
+
+::ng-deep .multiselect-container.custom-dropdown {
+  width: 300px; /* Set your desired width here */
+}
+.icon{
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+}

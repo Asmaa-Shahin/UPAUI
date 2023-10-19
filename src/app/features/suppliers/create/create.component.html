@@ -1,0 +1,167 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-10">
+                <h4 class="card-title"> {{'UPA.Create' | translate}} {{ 'UPA.Supplier' | translate }} </h4>
+            </div>
+            <div class="col-2">
+                <a [routerLink]="['/suppliers/']" [ngClass]="lang == 'en' ? 'hrefbutton': 'hrefbuttonAr'">
+                    {{'UPA.Back'|translate }}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <form #form="ngForm" (ngSubmit)="onSubmit()">
+            <div class="row top-buffer">
+                <div class="col-6">
+                    <input type="text" class="form-control fieldCode" id="code" name="code"
+                        [placeholder]="'UPA.Code' | translate" [(ngModel)]="supplierObj.code"
+                        #code="ngModel"  />
+
+
+                </div>
+                 </div>
+                 <div class="row top-buffer">
+                <div class="col-4">
+                    <input type="email" #email="ngModel" [(ngModel)]="supplierObj.email" name="email" id="email"
+                        class="form-control" [placeholder]="'UPA.EMail' | translate" />
+                </div>
+           
+            
+                <div class="col-4">
+                    <input type="text" #name="ngModel" [class.is-invalid]="name.invalid && name.touched"
+                        [class.is-valid]="name.valid" [(ngModel)]="supplierObj.name" name="name" id="name"
+                        class="form-control" [placeholder]="'UPA.Name' | translate" required>
+                    <div *ngIf="(name.touched || form.submitted) && name.errors?.required">
+                        <span class="text-danger"> {{ 'UPA.Name' | translate }} {{ 'UPA.Required' |
+                            translate}}</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <input type="text" #nameAr="ngModel" [class.is-invalid]="nameAr.invalid && nameAr.touched"
+                        [class.is-valid]="nameAr.valid" [(ngModel)]="supplierObj.nameAr" name="nameAr" id="nameAr"
+                        class="form-control" [placeholder]="'UPA.ArabicName' | translate" required>
+                    <div *ngIf="(nameAr.touched || form.submitted) && nameAr.errors?.required">
+                        <span class="text-danger"> {{ 'UPA.ArabicName' | translate }} {{ 'UPA.Required' |
+                            translate}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-4">
+                    <input type="text" #website="ngModel" [(ngModel)]="supplierObj.website" name="website" id="website"
+                        class="form-control" [placeholder]="'UPA.Website' | translate">
+                </div>
+                <div class="col-4">
+                    <input type="text" #mobile="ngModel" [(ngModel)]="supplierObj.mobile" name="mobile" id="mobile"
+                        class="form-control" [placeholder]="'UPA.Mobile' | translate">
+                </div>
+                <div class="col-4">
+                    <input type="text" #contactPerson="ngModel" [(ngModel)]="supplierObj.contactPerson"
+                        name="contactPerson" id="contactPerson" class="form-control"
+                        [placeholder]="'UPA.ContactPerson' | translate" />
+                </div>
+              
+            </div>
+            <div class="row top-buffer">
+                <div class="col-4">
+                    <input type="text" #address="ngModel" [(ngModel)]="supplierObj.address" name="address" id="address"
+                        class="form-control" [placeholder]="'UPA.Address' | translate"/>
+                </div>
+                <div class="col-4">
+                    <input type="text" #addressAr="ngModel" [(ngModel)]="supplierObj.addressAr" name="addressAr" id="addressAr"
+                        class="form-control" [placeholder]="'UPA.ArabicAddress' | translate"/>
+                </div>
+                <div class="col-4">
+                    <input type="text" #fax="ngModel" [(ngModel)]="supplierObj.fax" name="fax" id="fax"
+                        class="form-control" [placeholder]="'UPA.Fax' | translate" />
+                </div>
+               
+                </div>
+            <div class="row top-buffer">
+                <div class="col-8">
+                    <textarea #notes="ngModel" [(ngModel)]="supplierObj.notes" name="notes" id="notes"
+                        class="form-control" [placeholder]="'UPA.Notes' | translate"></textarea>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success" [translate]="'UPA.Save'"></button>
+                </div>
+            </div>
+        </form>
+
+
+        <fieldset *ngIf="isSaved">
+            <legend>{{'UPA.Upload' | translate }}</legend>
+            <div class="row top-buffer">
+                <div class="col-10">
+                    <label for="title"> {{'UPA.DocumentName' | translate }}</label>
+                    <input #title="ngModel" class="form-control" type="text" pInputText
+                        placeholder="{{'UPA.DocumentName' | translate }}"
+                        [(ngModel)]="createSupplierAttachment.title">
+                </div>
+                <div class="col-2">
+                    <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)"
+                        style="display:none;" (click)="$event.target.value=null">
+                    <button type="button" class="btn btn-outline-success" style="margin-top: 20px;margin-left: 10px;"
+                        (click)="file.click()" [disabled]="isDisabled"> <i class=" fa fa-upload"
+                            style="color: #61bb20; cursor: pointer;margin: 0px 5px;"></i>{{'UPA.SelectDocumentTitle' |
+                        translate }}
+                    </button>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{{'UPA.Name' | translate }}</th>
+                                <th>{{'UPA.DocumentTitle' | translate }}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let i of lstSupplierAttachments">
+                                <td>{{i.fileName}}</td>
+                                <td>{{i.title}}</td>
+                                <td>
+                                    <span (click)="removeFileFromObjectArray(i)"><i class="far fa-times-circle"
+                                            style="color: rgb(123, 9, 9);"></i></span>
+                                </td>
+                            </tr>
+                            <tr *ngIf="lstSupplierAttachments.length == 0">
+                                <td colspan="3" style="color: rgb(102, 97, 23);" [translate]="'UPA.NoData'">
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-md-12">
+                    <button (click)="saveFiles()" color="primary" [disabled]="isDisabled">{{'UPA.Save' |
+                        translate }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'UPA.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'UPA.SavedSuccess' |
+        translate }}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+    <p-header style="color: rgb(181, 4, 4)"> {{ 'UPA.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4); font-weight: bold">
+        {{ errorMessage }}</span>
+</p-dialog>

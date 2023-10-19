@@ -1,0 +1,145 @@
+<mat-toolbar>
+  <mat-toolbar-row >
+    <img [src]="ImageUrl"width="85" height="85" style="margin-top: 40px; margin-right: 20px; margin-left: 20px; border-radius:50% ;  border: 2px solid #ffffff;" />
+    <span fxFlex></span>
+    <span style="margin-top: 15px; font-size: 25px; color: #fffcf3">
+      {{header}}
+</span>
+    <span fxFlex></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<nav class="navbar navbar-expand-lg htmlMenu" [ngStyle]="{'direction': lang == 'en' ? 'ltr': 'rtl'}" >
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/dashboard']">
+          <i class="pi pi-home" ></i> {{'UPA.DashBoard' | translate}} </a>
+      </li>
+      <div ngbDropdown class="dropdown">
+        <button ngbDropdownToggle class="btn btn-Dark" type="button" id="ddlAssets"
+          aria-expanded="false">
+          <i class="pi pi-desktop" ></i> {{'UPA.List' | translate}}
+        </button>
+
+        <ul ngbDropdownMenu aria-labelledby="ddlAssets">
+          <li  [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a  ngbDropdownItem [routerLink]="['/dash/masterassets']">
+              <i class="bi bi-list" style="padding: 0px 10px;"></i>
+             {{'UPA.MasterAssets' | translate}}</a>
+          </li>
+          <li  [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a ngbDropdownItem [routerLink]="['/dash/hospitalassets']">
+              <i class="bi bi-card-list" style="padding: 0px 10px;"></i>
+             {{'UPA.HospitalAssets' | translate}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div ngbDropdown class="dropdown">
+        <button ngbDropdownToggle class="btn btn-Dark" type="button" id="ddlReports"
+          aria-expanded="false">
+          <i class="pi pi-file-o" ></i>
+          {{'UPA.Reports' | translate}}
+        </button>
+        <ul ngbDropdownMenu aria-labelledby="ddlReports">
+          <li  [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">        
+            <a ngbDropdownItem [routerLink]="['/dash/report/categorygovernorate']">
+
+              <i class="bi bi-bar-chart"  style="padding: 0px 10px;"></i>
+              {{'UPA.CatGovernorate' | translate}}</a>
+          </li>
+          <li  [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">        
+            <a ngbDropdownItem [routerLink]="['/dash/report/orggovernorate']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.OrgGovernorate' | translate}}</a>
+          </li>
+
+          <li  [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">        
+            <a ngbDropdownItem [routerLink]="['/dash/report/totalsssets']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.GovAssets' | translate}}</a>
+          </li>
+          <li  [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">        
+            <a ngbDropdownItem [routerLink]="['/dash/report/generic']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.GenericReport' | translate}}</a>
+          </li>
+          <li  [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">        
+            <a ngbDropdownItem [routerLink]="['/dash/report/geo']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.Geo' | translate}}</a>
+          </li>
+          <li [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a ngbDropdownItem [routerLink]="['/dash/report/governorateassets']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.GovAssetsChart' | translate}}</a>
+          </li>
+          <li [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a ngbDropdownItem [routerLink]="['/dash/report/governoratepopulation']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.GovPopulation' | translate}}</a>
+          </li>
+          <li [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a ngbDropdownItem [routerLink]="['/dash/report/orgcatassets']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.OrgGovAssets' | translate}}</a>
+          </li>
+          <li [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a ngbDropdownItem [routerLink]="['/dash/report/govorgasset']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.govorasset' | translate}}</a>
+          </li>
+          <li [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a ngbDropdownItem [routerLink]="['/dash/report/govpopulationnumber']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.govpopulationnumber' | translate}}</a>
+          </li>
+          <li [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a ngbDropdownItem [routerLink]="['/dash/report/assetagegroups']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.assetagegroups' | translate}}</a>
+          </li>
+        </ul>
+      </div>
+      <div ngbDropdown class="dropdown">
+        <button ngbDropdownToggle class="btn btn-Dark" type="button" id="dropdownMenuButton1"
+          aria-expanded="false">
+          <i class="pi pi-cog" ></i>
+          {{'UPA.Settings' | translate}}
+        </button>
+        <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
+          <li   [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">        
+            <a ngbDropdownItem [routerLink]="['/dash/governorates']">
+              <i class="pi pi-flag" style="padding: 0px 10px;" ></i>{{'UPA.Governorates' | translate}}</a>
+          </li>
+          <li  [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">          
+            <a ngbDropdownItem [routerLink]="['/dash/organizations']">
+              <i class="bi bi-diagram-3" style="padding: 0px 10px;"></i>{{'UPA.Organizations' | translate}}</a>
+          </li>
+          <li  [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a ngbDropdownItem [routerLink]="['/dash/hospitals']">
+              <i class="bi bi-hospital" style="padding: 0px 10px;"></i>{{'UPA.Hospitals' | translate}}</a>
+          </li>
+          <li  [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a ngbDropdownItem [routerLink]="['/dash/categories']">
+              <i class="bi bi-menu-button-fill" style="padding: 0px 10px;"></i>
+            {{'UPA.Categories' | translate}}</a>
+          </li>
+         
+        </ul>
+      </div>
+    </ul>
+    <span fxFlex></span>
+   
+    <div class="row">
+      <div class="col-6" style="cursor: pointer;">
+        <div *ngIf="translate.currentLang === 'en'">
+          <a class="htmlLangMenu" (click)="selectLanguage('ar')">
+            {{'UPA.Language' | translate}}
+          </a>
+        </div>
+        <div *ngIf="translate.currentLang === 'ar'">
+          <a class="htmlLangMenu" (click)="selectLanguage('en')">
+            {{'UPA.Language' | translate}}
+          </a>
+        </div>
+      </div>
+      <div class="col-1">
+        <button (click)="logout()" style="color:#fffcf3;background-color: #11375e; border: 0px;">
+          <i class="pi pi-sign-out " ></i> 
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

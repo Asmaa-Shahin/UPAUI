@@ -1,0 +1,262 @@
+<div class="card">
+    <div class="card-body">
+        <form #EditAssetForm="ngForm">
+            <div class="row top-buffer">
+                <div class="col">
+                    <input type="text" class="form-control fieldCode" id="code" name="code" #code="ngModel" autofocus
+                        required 
+                        [ngModel]="lang=='en'?assetObj.code:(+assetObj.code).toLocaleString('ar-SA',{  useGrouping: false })"
+
+                        pTooltip="{{'UPA.Code' | translate}}"tooltipPosition="left"
+                        [ngModelOptions]="{standalone: true}"
+                        [class.is-invalid]="code.touched && code.errors || EditAssetForm.submitted"
+                        [class.is-valid]="code.valid && EditAssetForm.submitted">
+                </div>
+            </div>
+            <div class="row titles">
+                <hr class="col-4">
+                <div class="col-4 cft">{{ "UPA.BasicData" | translate }}
+                </div>
+                <hr class="col-4">
+            </div>
+            <div class="row ">
+                <div class="col-4">
+                    <label for="serialNumber" [translate]="'UPA.Serial'"></label>
+                        <input type="text" class="form-control" id="serialNumber" name="serialNumber"
+                            [ngModelOptions]="{standalone: true}" pTooltip={{assetObj.serialNumber}} tooltipPosition="bottom"
+                            [(ngModel)]="assetObj.serialNumber" #serialNumber="ngModel" />
+                </div>
+                <div class="col-8">
+                    <label for="masterAssetId">{{ 'UPA.MasterAssets' | translate }}</label>
+                        <p-autoComplete inputId="masterAssetId" [(ngModel)]="masterAssetObj" pTooltip={{masterAssetObj.serialNumber}}
+                            [ngModelOptions]="{standalone: true}" [suggestions]="lstMasterAssets" name="masterAssetId"
+                            id="masterAssetId" appendTo="body" (completeMethod)="onSelectionChanged($event)"
+                            (onSelect)="getObject($event)" field="name" [dropdown]="false">
+                            <ng-template let-masterAssetObj pTemplate="item" style="width: 400px;">
+                                {{lang=="en"
+                                ?masterAssetObj.name:masterAssetObj.nameAr}} - {{masterAssetObj.model}} -
+                                {{lang =="en" ? masterAssetObj.brandName:masterAssetObj.brandNameAr}}
+                            </ng-template>
+                            <ng-template let-masterAssetObj pTemplate="selectedItem">
+                                {{lang=="en" ?masterAssetObj.name:masterAssetObj.nameAr}} - {{masterAssetObj.model}} -
+                                {{lang =="en"? masterAssetObj.brandName:masterAssetObj.brandNameAr}}
+                            </ng-template>
+                        </p-autoComplete>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-4">
+                    <label for="hospital" [translate]="'UPA.Hospital'"></label>
+                    <p-autoComplete [(ngModel)]="hospitalAssetObj" [ngModelOptions]="{standalone: true}"
+                        [suggestions]="lstHospitals" name="hospitalId" id="hospitalId" appendTo="body"
+                        (completeMethod)="onHospitalSelectionChanged($event)" (onSelect)="getHospitalObj($event)"
+                        field="name" [dropdown]="false" pTooltip={{hospitalAssetObj.name}}  tooltipPosition="bottom">
+                        <ng-template let-hospitalAssetObj pTemplate="item" >
+                            {{lang=="en"
+                            ?hospitalAssetObj.name:hospitalAssetObj.nameAr}}
+                        </ng-template>
+                        <ng-template let-hospitalAssetObj pTemplate="selectedItem">
+                            {{lang=="en"
+                            ?hospitalAssetObj.name:hospitalAssetObj.nameAr}}
+                        </ng-template>
+                    </p-autoComplete>
+                </div>
+                <div class="col-2">
+                    <label for="governorate" [translate]="'UPA.Governorate'"></label>
+                    <input type="text" class="form-control" id="governorate" name="governorate"
+                       tooltipPosition="bottom" pTooltip={{hospitalss.governorateName}}
+                        [value]="lang=='en' ?hospitalss.governorateName:hospitalss.governorateNameAr" readonly>
+                </div>
+                <div class="col-2">
+                    <label for="cityId" [translate]="'UPA.City'"></label>
+                    <input type="text" class="form-control" id="city" name="city" 
+                    tooltipPosition="bottom" [value]="lang=='en' ?hospitalss.cityName:hospitalss.cityNameAr" readonly>
+                </div>
+
+                <div class="col-2">
+                    <label for="org" [translate]="'UPA.Organization'"></label>
+                    <input type="text" class="form-control" id="org" name="org"
+                        tooltipPosition="bottom" [value]="lang=='en' ?hospitalss.orgName:hospitalss.orgNameAr" readonly>
+                </div>
+
+                <div class="col-2">
+                    <label for="subOrgName" [translate]="'UPA.SubOrganization'"></label>
+                    <input type="text" class="form-control" id="subOrgName" name="subOrgName"
+                       tooltipPosition="bottom" [value]="lang=='en' ?hospitalss.subOrgName:hospitalss.subOrgNameAr" readonly>
+
+                </div>
+            </div>
+            <div class="row titles" >
+                <hr class="col-4">
+                <div class="col-4 cft"> {{ "UPA.Details" | translate }}
+                </div>
+                <hr class="col-4">
+            </div>
+            <div class="row" style="margin-bottom: -25px !important;">
+                <div class="col-3">
+                    <label for="supplierId" [translate]="'UPA.Supplier'"></label>
+                    <select type="text" id="supplierId" class="form-control" name="supplierId"
+                        [(ngModel)]="assetObj.supplierId" [ngModelOptions]="{standalone: true}" #supplierId="ngModel"
+                        [value]="null" >
+                        <option [value]="null">
+                        </option>
+                        <option *ngFor="let supply of lstSuppliers" [value]="supply.id">
+                            {{lang == "en" ? supply.name:supply.nameAr}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <label for="price" [translate]="'UPA.Price'"></label>
+                    <input type="text" id="price" class="form-control" name="price" [(ngModel)]="assetObj.price"
+                        [ngModelOptions]="{standalone: true}" #price="ngModel" />
+                </div>
+
+                <div class="col-3">
+                    <label for="purchaseDate" [translate]="'UPA.PurchaseDate'"> </label>
+                    <mat-form-field class=" example-full-width" appearance="fill">
+                        <input matInput [matDatepicker]="picker" container="body" name="purchaseDate"
+                            [value]="assetObj.purchaseDate | date:'yyyy-MM-dd'"
+                            (dateChange)="changePurchaseDate($event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <label for="date" [translate]="'UPA.InstallationDate'"> </label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <input matInput [matDatepicker]="picker2" name="installationDate" container="body"
+                            [value]="assetObj.installationDate | date:'yyyy-MM-dd'"
+                            (dateChange)="changeInstallationDate($event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-6">
+                    <label for="remarks" [translate]="'UPA.Remarks'"></label>
+                    <textarea type="text" rows="1" class="form-control" id="remarks" name="remarks"
+                     [(ngModel)]="assetObj.remarks" #remarks="ngModel" pTooltip="{{'UPA.Remarks' | translate}}" tooltipPosition="bottom"></textarea>
+                </div>
+                <div class="col-5">
+                    <label for="title" [translate]="'UPA.SelectUploadFile'"></label>
+                    <input #title="ngModel" class="form-control" type="text" name="title"
+                      [(ngModel)]="assetDetailDocument.title" [ngModelOptions]="{standalone: true}" />
+                    <input type="file" #file (change)="uploadFile(file.files)"
+                        style="display: none;" />
+                </div>
+                <div class="col-1" style="margin-top: 35px !important;">
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="file.click()">
+                        <i class="pi pi-upload"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class=" row">
+                <div class="col-12">  <table class="table" *ngIf="lstAssetDetailDocument.length != 0">
+                    <thead>
+                        <tr>
+                            <th>{{ 'UPA.FileName' | translate }}</th>
+                            <th>{{ 'UPA.Title' | translate }}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of lstAssetDetailDocument">
+                            <td>{{i.fileName}}</td>
+                            <td>{{i.title}}</td>
+                            <td>
+                                <span (click)="removeFileFromObjectArray(i)"><i class="pi pi-times"
+                                        style="color: rgb(123, 9, 9);"></i></span>
+                            </td>
+                        </tr>
+                        <tr *ngIf="lstAssetDetailDocument.length == 0">
+                            <td colspan="4" style="color: rgb(102, 97, 23);" [translate]="'UPA.NoData'">
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table></div>
+              
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-striped"  *ngIf="lstAttachment.length != 0">
+                        <thead>
+                            <tr>
+                                <th [translate]="'UPA.Id'"> {{ 'UPA.Id' | translate }}</th>
+                                <th [translate]="'UPA.FileName'"> {{ 'UPA.FileName' | translate }}</th>
+                                <th [translate]="'UPA.FileName'"> {{ 'UPA.Title' | translate }}</th>
+                                <th style="text-align: center;" [translate]="'UPA.Delete'"> {{ 'UPA.Delete' | translate }}</th>
+                                <th style="text-align: center;" [translate]="'UPA.Download'"> {{'UPA.Download' | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of lstAttachment">
+                                <td>{{item.id}}</td>
+                                <td>{{item.fileName}}</td>
+                                <td>{{item.title}}</td>
+                                <td style="cursor: pointer;text-align: center;">
+                                    <a (click)="DeleteFile(item.id)" [translate]="'UPA.Delete'" pTooltip="Delete File"
+                                        tooltipPosition="bottom"> <i class="pi pi-trash"></i></a>
+                                </td>
+                                <td style="cursor: pointer;text-align: center;" pTooltip="Download File"
+                                    tooltipPosition="bottom">
+                                    <a (click)="downloadFile(item.fileName)"><i class="pi pi-download" style="color: #61bb20;"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" (click)="onSubmit()" class="btn btn-success " value="save"> {{ "UPA.Save" | translate }} </button>
+                </div>
+            </div>
+        </form>
+
+
+
+
+    </div>
+</div>
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="savedfilesdisplay">
+    <ng-template pTemplate="header">
+        <h6 style="color: #04527e;font-weight: bold;font-size: 16pt;" [translate]="'UPA.Save'"></h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;">{{ 'UPA.SavedFiles' | translate
+        }}</span>
+</p-dialog>
+<p-dialog appendTo="body" modal="true" (onHide)="onDialogClose()" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 style="color: #04527e;font-weight: bold;font-size: 16pt;"> {{ 'UPA.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'UPA.SavedSuccess' |
+        translate }}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+    <p-header style="color: rgb(181, 4, 4)"> {{ 'UPA.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4); font-weight: bold">
+        {{ errorMessage }}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="dateError">
+    <ng-template pTemplate="header">
+        <h4 style="color: red;">{{ 'UPA.DateError' | translate }}</h4>
+    </ng-template>
+
+    <span style="color: red;">
+        {{error.errorMessage}}
+
+    </span>
+</p-dialog>
+
+
+
+<p-confirmDialog header="Are you sure you want to delete this Item">
+</p-confirmDialog>

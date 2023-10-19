@@ -1,0 +1,72 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-10">
+                <h4 class="card-title"> {{ 'UPA.Create' | translate}} {{ 'UPA.ECRIS' | translate }}</h4>
+            </div>
+            <div class="col-2">
+                <a [routerLink]="['/ecris/']" [ngClass]="lang == 'en' ? 'hrefbutton': 'hrefbuttonAr'"> {{'UPA.Back'|translate }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" (ngSubmit)="onSubmit()">
+            <div class="row top-buffer">
+                <div class="col-2">
+                    <input type="text" class="form-control fieldCode" id="code" name="code"
+                        pTooltip="{{'UPA.Code' | translate}}" [placeholder]="'UPA.Code' | translate"
+                        tooltipPosition="bottom" [(ngModel)]="ECRIObj.code" #code="ngModel" [class.is-invalid]="
+                      (code.touched && code.errors) || form.submitted" [class.is-valid]="code.valid && form.submitted"
+                        required />
+                    <div *ngIf="(code.touched || form.submitted) && code.errors?.required">
+                        <span class="text-danger"> {{ 'UPA.Code' | translate }} {{ 'UPA.Required' |
+                            translate}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row top-buffer">
+                <div class="col-6">
+                    <input type="text" #name="ngModel" [class.is-invalid]="name.invalid && name.touched"
+                        [class.is-valid]="name.valid" [(ngModel)]="ECRIObj.name" name="name" id="name"
+                        class="form-control" [placeholder]="'UPA.Name' | translate" required>
+                    <div *ngIf="(name.touched || form.submitted) && name.errors?.required">
+                        <span class="text-danger"> {{ 'UPA.Name' | translate }} {{ 'UPA.Required' |
+                            translate}}</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <input type="text" #nameAr="ngModel" [class.is-invalid]="nameAr.invalid && nameAr.touched"
+                        [class.is-valid]="name.valid" [(ngModel)]="ECRIObj.nameAr" name="nameAr" id="nameAr"
+                        class="form-control" [placeholder]="'UPA.ArabicName' | translate" required>
+                    <div *ngIf="(nameAr.touched || form.submitted) && nameAr.errors?.required">
+                        <span class="text-danger"> {{ 'UPA.ArabicName' | translate }} {{ 'UPA.Required' |
+                            translate}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row top-buffer">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success" [translate]="'UPA.Save'"></button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'UPA.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'UPA.SavedSuccess' |
+        translate }}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+    <p-header style="color: rgb(181, 4, 4)"> {{ 'UPA.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4); font-weight: bold">
+        {{ errorMessage }}</span>
+</p-dialog>

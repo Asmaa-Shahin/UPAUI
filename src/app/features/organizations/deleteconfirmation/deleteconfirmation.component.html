@@ -1,0 +1,13 @@
+<div [dir]="textDir">
+  <div class="cardDelete">
+    <div class="deleteContent">
+      <div > {{'UPA.DeleteAlertMessage' | translate}} </div>
+      <b> {{name}} ? </b>
+    </div>
+    <div class="deleteFooter">
+      <div><button type="button" class="btn btn-success btn-sm" (click)="close()"> {{'UPA.No' | translate}}</button>
+      </div>
+      <div><button type="button" class="btn btn-danger btn-sm" (click)="delete()" cdkFocusInitial>{{'UPA.Delete' | translate}}</button>
+    </div></div>
+  </div>
+</div>

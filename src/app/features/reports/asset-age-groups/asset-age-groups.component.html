@@ -1,0 +1,50 @@
+<h4 class="card-title " style="color: #11375E ;"> 
+  {{ lang == "en" ? "Population census according to governorates" : "التعداد السكانى طبقا للمحافظات"}}
+ 
+</h4>
+  <div class="row top-buffer"></div>
+
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-4">
+      <ng-multiselect-dropdown   class="custom-dropdown-width" [placeholder]="'UPA.Brand'|translate"
+        [settings]="dropdownSettings" [data]="lstBrands" [(ngModel)]="selectedBrandItems"
+        (onSelect)="onBrandSelect($event)" (onSelectAll)="onBrandSelectAll($event)"
+        (onDeSelect)="onBrandDeselect($event)" (onDeSelectAll)="onBrandDeselectAll($event)">
+    </ng-multiselect-dropdown>
+    </div>
+    
+    <div class="col-4">
+      <ng-multiselect-dropdown   class="custom-dropdown-width" [placeholder]="'UPA.Category'|translate"
+        [settings]="dropdownSettings" [data]="lstCategories" [(ngModel)]="selectedCategoryItems"
+        (onSelect)="onCatSelect($event)" (onSelectAll)="onCatSelectAll($event)"
+        (onDeSelect)="onCatDeselect($event)" (onDeSelectAll)="onCatDeselectAll($event)">
+    </ng-multiselect-dropdown>
+    </div>
+    
+    <div class="col-4">
+      <ng-multiselect-dropdown   class="custom-dropdown-width" [placeholder]="'UPA.Organization'|translate"
+        [settings]="dropdownSettings" [data]="lstOrganizations" [(ngModel)]="selectedOrganizationItems"
+        (onSelect)="onOrgSelect($event)" (onSelectAll)="onOrgSelectAll($event)"
+        (onDeSelect)="onOrgDeselect($event)" (onDeSelectAll)="onOrgDeselectAll($event)">
+    </ng-multiselect-dropdown>
+    </div>
+  </div>
+</div>
+
+<div id="chart">
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [dataLabels]="chartOptions.dataLabels"
+      [plotOptions]="chartOptions.plotOptions"
+      [yaxis]="chartOptions.yaxis"
+      [xaxis]="chartOptions.xaxis"
+      [stroke]="chartOptions.stroke"
+      [grid]="chartOptions.grid"
+      [fill]="chartOptions.fill"
+      [annotations]="chartOptions.annotations"
+    ></apx-chart>
+  </div>

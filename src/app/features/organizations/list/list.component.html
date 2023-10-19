@@ -1,0 +1,93 @@
+<div class="row top-buffer">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title"> {{ 'UPA.Organizations' | translate }} </h4>
+                    </div>
+                    <div class="col-2">
+                        <a (click)="addOrg()" [ngClass]="lang == 'en' ? 'hrefbutton': 'hrefbuttonAr'">
+                            {{'UPA.Add'|translate }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <p-listbox [options]="lstOrganizations" [(ngModel)]="selectedOrgId" [filter]="true"
+                            optionLabel="name" optionValue="id" [listStyle]="{ 'max-height': '295px' }"> 
+                            <ng-template let-org pTemplate="item">
+                                <div class="flex align-items-center gap-2" (click)="filterSubByOrganizationId(org.id)">
+                                    <img [src]="org.logo != null ?imgOrgURL+org.logo:imgNullOrgURL" width="40"
+                                        height="40" style="border-radius: 100%;" />
+                                    {{org.code}} - {{lang =='en' ? org.name:org.nameAr}}
+                                </div>
+                                <span class="example-spacer"></span>
+                                <span (click)="editOrg(org.id)" pTooltip="{{'UPA.Edit' | translate}}"
+                                    tooltipPosition="top">
+                                    <i class="editIcon pi pi-file-edit"></i></span>
+                                <span (click)="deleteOrg(org.id)" pTooltip="{{'UPA.Delete' | translate}}"
+                                    tooltipPosition="top">
+                                    <i class="deleteIcon pi pi-trash"></i></span>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title"> {{ 'UPA.SubOrganizations' | translate }} </h4>
+                    </div>
+                    <div class="col-2">
+                        <a (click)="addSubOrganization()" [ngClass]="lang == 'en' ? 'hrefbutton': 'hrefbuttonAr'">
+                            {{'UPA.Add'|translate }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <p-listbox [options]="lstSubOrganizations" [(ngModel)]="selectedSubOrgId" [filter]="true"
+                            optionLabel="name" optionValue="id" [listStyle]="{ 'max-height': '295px' }">
+                            <ng-template let-subOrg pTemplate="item">
+                                <div> {{subOrg.code}} - {{lang =='en' ? subOrg.name:subOrg.nameAr}} </div>
+                                <span class="example-spacer"></span>
+                                <span (click)="editSubOrganization(subOrg.id)" pTooltip="{{'UPA.Edit' | translate}}"
+                                    tooltipPosition="top"> <i class="editIcon pi pi-file-edit"></i></span>
+                                <span (click)="deleteSubOrganization(subOrg.id)" pTooltip="{{'UPA.Delete' | translate}}"
+                                    tooltipPosition="top"> <i class="deleteIcon pi pi-trash"></i></span>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;"> {{ 'UPA.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'UPA.SavedSuccess' |
+        translate }}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{width: '350px'}">
+    <p-header style="color: rgb(181, 4, 4);"> {{ 'UPA.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4);font-weight: bold;"> {{errorMessage}}</span>
+</p-dialog>

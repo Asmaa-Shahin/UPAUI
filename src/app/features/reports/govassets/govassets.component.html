@@ -1,0 +1,19 @@
+
+<!-- <ng-multiselect-dropdown appendTo="body" [placeholder]="'UPA.Category'|translate" [settings]="dropdownSettings"
+[data]="lstCategories" [(ngModel)]="selectedCategoryItems" (onSelect)="onCategorySelect($event)"
+(onSelectAll)="onCategorySelectAll($event)" (onDeSelect)="onCategoryDeselect($event)"
+(onDeSelectAll)="onCategoryDeselectAll($event)">
+</ng-multiselect-dropdown> -->
+<h4 class="card-title mt-4" style="color: #11375E ;">{{lang == "en" ? "Assets By Governorate" : "عدد الأصول طبقاً للمحافظات"}}</h4>
+<div id="chart">
+  <apx-chart
+    [series]="triangleChartOptions.series!"
+    [chart]="triangleChartOptions.chart!"
+    [dataLabels]="triangleChartOptions.dataLabels!"
+    [plotOptions]="triangleChartOptions.plotOptions!"
+    [xaxis]="triangleChartOptions.xaxis!"
+    [colors]="triangleChartOptions.colors!"
+    [title]="triangleChartOptions.title!"
+    [legend]="triangleChartOptions.legend!"
+  ></apx-chart>
+</div>

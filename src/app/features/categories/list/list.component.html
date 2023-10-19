@@ -1,0 +1,106 @@
+<div class="row top-buffer">
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title"> {{ 'UPA.Categories' | translate }} </h4>
+                    </div>
+                    <div class="col-2">
+                        <a (click)="addCategory(selectedTypeId)" [ngClass]="lang == 'en' ? 'hrefbutton': 'hrefbuttonAr'"> {{'UPA.Add'|translate
+                            }}</a>
+                    </div>
+                </div>
+            </div>   
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <p-listbox *ngIf="lang=='en'" [options]="categoriesList" [(ngModel)]="selectedcateId" [filter]="true"
+                            optionLabel="name" optionValue="id"  [listStyle]="{ 'max-height': '295px' }">
+                            <ng-template let-cate pTemplate="item">
+                                <div (click)="filterSubCategoriesByCategoryId(cate.id)">
+                                    {{cate.code}} - {{lang =='en' ? cate.name:cate.nameAr}}
+                                </div>
+                                <span class="example-spacer"></span>
+                                <span (click)="editCategory(cate.id)" pTooltip="{{'UPA.Edit' | translate}}"
+                                    tooltipPosition="top"> <i class="editIcon pi pi-file-edit"></i> </span>
+                                <span (click)="deleteCategory(cate.id)" pTooltip="{{'UPA.Delete' | translate}}"
+                                    tooltipPosition="top"><i class="deleteIcon pi pi-trash"></i></span>
+                            </ng-template>
+                        </p-listbox>
+                        <p-listbox *ngIf="lang=='ar'" [options]="categoriesList" [(ngModel)]="selectedcateId" [filter]="true"
+                            optionLabel="nameAr" optionValue="id"  [listStyle]="{ 'max-height': '295px' }">
+                            <ng-template let-cate pTemplate="item">
+                                <div (click)="filterSubCategoriesByCategoryId(cate.id)">
+                                    {{cate.code}} - {{lang =='en' ? cate.name:cate.nameAr}}
+                                </div>
+                                <span class="example-spacer"></span>
+                                <span (click)="editCategory(cate.id)" pTooltip="{{'UPA.Edit' | translate}}"
+                                    tooltipPosition="top"> <i class="editIcon pi pi-file-edit"></i> </span>
+                                <span (click)="deleteCategory(cate.id)" pTooltip="{{'UPA.Delete' | translate}}"
+                                    tooltipPosition="top"><i class="deleteIcon pi pi-trash"></i></span>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title"> {{ 'UPA.SubCategories' | translate }} </h4>
+                    </div>
+                    <div class="col-2">
+                        <a (click)="addSubCategory()" [ngClass]="lang == 'en' ? 'hrefbutton': 'hrefbuttonAr'"> {{'UPA.Add'|translate }}</a>
+                    </div>
+                </div>
+            </div>  
+            <div class="card-body">
+                <div class="row">
+                    <div class="col" > 
+                        <p-listbox *ngIf="lang=='en'" [options]="subCategoriesList" [filter]="true" optionLabel="name"
+                            optionValue="id" [listStyle]="{ 'max-height': '295px' }">
+                            <ng-template let-subCate pTemplate="item">
+                                <div> {{subCate.code}} - {{lang =='en' ? subCate.name:subCate.nameAr}} </div>
+                                <span class="example-spacer"></span>
+                                <span (click)="editSubCategory(subCate.id)" pTooltip="{{'UPA.Edit' | translate}}"
+                                    tooltipPosition="top"> <i class="editIcon pi pi-file-edit"></i> </span>
+                                <span (click)="deleteSubCategory(subCate.id)" pTooltip="{{'UPA.Delete' | translate}}"
+                                    tooltipPosition="top"><i class="deleteIcon pi pi-trash"></i></span>
+                            </ng-template>
+                        </p-listbox>
+                        <p-listbox *ngIf="lang=='ar'" [options]="subCategoriesList" [filter]="true" optionLabel="nameAr"
+                            optionValue="id" [listStyle]="{ 'max-height': '295px' }">
+                            <ng-template let-subCate pTemplate="item">
+                                <div> {{subCate.code}} - {{lang =='en' ? subCate.name:subCate.nameAr}}</div>
+                                <span class="example-spacer"></span>
+                                <span (click)="editSubCategory(subCate.id)" pTooltip="{{'UPA.Edit' | translate}}"
+                                    tooltipPosition="top"> <i class="editIcon pi pi-file-edit"></i> </span>
+                                <span (click)="deleteSubCategory(subCate.id)" pTooltip="{{'UPA.Delete' | translate}}"
+                                    tooltipPosition="top"><i class="deleteIcon pi pi-trash"></i></span>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'UPA.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'UPA.SavedSuccess' |
+        translate
+        }}</span>
+</p-dialog>
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{width: '350px'}">
+    <p-header style="color: rgb(181, 4, 4);"> {{ 'UPA.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4);font-weight: bold;"> {{errorMessage}}</span>
+</p-dialog>

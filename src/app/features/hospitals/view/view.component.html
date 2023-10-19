@@ -1,0 +1,83 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row " style="justify-content: space-between;">
+
+            <div class="card-subTitle col-3">
+                {{ 'UPA.Main' | translate }}</div>
+
+           <div class="form-control fieldCode col-3" > 
+            {{lang == "en" ? hospitalObj.code:(+hospitalObj.code).toLocaleString('ar-SA',{  useGrouping: false })}}
+
+           </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-4">
+                <label for="name">{{'UPA.Name' | translate }} : </label>
+                {{hospitalObj.name}}
+            </div>
+
+            <div class="col-4">
+                <label for="nameAr">{{'UPA.ArabicName' | translate }} : </label>
+                {{hospitalObj.nameAr}}
+            </div>
+            <div class="col-4">
+                <label for="governorate">{{'UPA.Governorate' | translate }} : </label>
+                {{lang == "en" ? hospitalObj.governorateName:hospitalObj.governorateNameAr}}
+            </div>
+        </div>
+        <div class="row top-buffer">
+
+            <div class="col-4">
+                <label for="city">{{'UPA.City' | translate }} : </label>
+                {{lang == "en" ? hospitalObj.cityName:hospitalObj.cityNameAr}}
+            </div>
+            <div class="col-4">
+                <label for="organization">{{'UPA.Organization' | translate }} : </label>
+                {{lang == "en" ? hospitalObj.orgName:hospitalObj.orgNameAr}}
+            </div>
+            <div class="col-4">
+                <label for="organization">{{'UPA.SubOrganization' | translate }} : </label>
+                {{lang == "en" ? hospitalObj.subOrgName:hospitalObj.subOrgNameAr}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row top-buffer"></div>
+<div class="card">
+    <div class="card-body">
+        <div class="card-subTitle">
+            {{ 'UPA.Details' | translate }}</div>
+        <div class="row top-buffer">
+            <div class="col-4">
+                <label for="manager"> {{ 'UPA.Manager' | translate }} : </label>
+                {{hospitalObj.managerName}}
+            </div>
+            <div class="col-4">
+                <label for="manager"> {{ 'UPA.ArabicManager' | translate }} : </label>
+                {{hospitalObj.managerNameAr}}
+            </div>
+            <div class="col-4">
+                <label for="mobile"> {{ 'UPA.Mobile' | translate }} : </label>
+                {{hospitalObj.mobile}}
+            </div>
+
+        </div>
+
+        <div class="row top-buffer">
+            <div class="col-4">
+                <label for="Adress">{{'UPA.Address' | translate }} : </label>
+
+                {{hospitalObj.address}}
+            </div>
+            <div class="col-4">
+                <label for="Adress">{{'UPA.ArabicAddress' | translate }} : </label>
+                {{hospitalObj.addressAr}}
+            </div>
+            <div class="col-4">
+                <label for="Email"> {{ 'UPA.EMail' | translate }} : </label>
+                {{hospitalObj.email}}
+            </div>
+        </div>
+    </div>
+</div>

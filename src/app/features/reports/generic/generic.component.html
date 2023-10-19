@@ -1,0 +1,565 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row ">
+            <div class="col-10">
+                <h4 class="card-title"> {{ 'UPA.GenericReport' | translate}} </h4>
+            </div>
+            <div class="col-2">
+                <a data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false"
+                    aria-controls="collapseExample1" [ngClass]="lang == 'en' ? 'hrefbutton': 'hrefbuttonAr'">
+                    <i class="bi bi-funnel"></i> {{'UPA.Filter'|translate}}</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="collapse" id="collapseExample1">
+                <div class="card-body">
+                    <form (ngSubmit)="onFilter()" [formGroup]="searchForm">
+                     
+                        <div class="row ">
+                            <div class="col-3">
+                                <label>{{'UPA.Governorate' |translate}}</label>
+                                <select class="form-control"formControlName="governorate" (change)="filterByGov($event)">
+                                    <option value="0"></option>
+                                    <option *ngFor="let brnd of govList" [value]="brnd.id">
+                                        {{ lang == "en" ? brnd.name : brnd.nameAr }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <label>{{'UPA.Hospital' |translate}}</label>
+                                <select class="form-control"formControlName="hospital" (change)="filterByHos($event)">
+                                    <option value="0"></option>
+                                    <option *ngFor="let brnd of hosList" [value]="brnd.id">
+                                        {{ lang == "en" ? brnd.name : brnd.nameAr }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <label>{{'UPA.Organization' |translate}}</label>
+                                <select class="form-control" formControlName="organization" (change)="filterByOrg($event)">
+                                    <option value="0"></option>
+                                    <option *ngFor="let brnd of orgList" [value]="brnd.id">
+                                        {{ lang == "en" ? brnd.name : brnd.nameAr }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <label>{{'UPA.SubOrganization' |translate}}</label>
+                                <select class="form-control" formControlName="subOrganization" (change)="filterBySubOrg($event)">
+                                    <option value="0"></option>
+                                    <option *ngFor="let brnd of subList" [value]="brnd.id">
+                                        {{ lang == "en" ? brnd.name : brnd.nameAr }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-3">
+                                <label>{{'UPA.Name' |translate}}</label>
+                                <p-autoComplete class="p-autocomplete" formControlName="selectedItem"
+                                    [suggestions]="lstMasterAssets" type="search" name="masterAssetId"
+                                    id="masterAssetId" (completeMethod)="onSelectionChanged($event)"
+                                    (onSelect)="getObject($event)" field="name" [dropdown]="false"
+                                    (onClear)="clearAutoCompelete($event)">
+                                    <ng-template let-masterAssetObj pTemplate="item">
+                                        {{lang ==="en" ? masterAssetObj.name:masterAssetObj.nameAr}}
+                                    </ng-template>
+                                    <ng-template let-masterAssetObj pTemplate="selectedItem">
+                                        {{lang=="en" ?masterAssetObj.name:masterAssetObj.nameAr}}
+                                    </ng-template>
+                                </p-autoComplete>
+                            </div>
+                            <div class="col-3">
+                                <label>{{'UPA.Brand' |translate}}</label>
+                                <select class="form-control" formControlName="brand"(change)="filterByBrand($event)">
+                                    <option value="0"></option>
+                                    <option *ngFor="let brnd of brndList" [value]="brnd.id">
+                                        {{ lang == "en" ? brnd.name : brnd.nameAr }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <label>{{'UPA.From' |translate}}</label>
+                                <input type="date" class="form-control" id="purchaseDateFrom"formControlName="purchaseDateFrom" name="purchaseDateFrom"
+                                    #purchaseDateFrom placeholder="{{'UPA.PurchaseDate'|translate}}"
+                                    [(ngModel)]="purchaseDate"
+                                    (change)="filterByPurchaseDateFrom(purchaseDateFrom.value)">
+                            </div>
+                            <div class="col-2">
+                                <label>{{'UPA.To' |translate}}</label>
+                                <input type="date" class="form-control" formControlName="purchaseDateTo" id="purchaseDateTo" name="purchaseDateTo"
+                                    #purchaseDateTo placeholder="{{'UPA.PurchaseDate'|translate}}"
+                                    (change)="filterByPurchaseDateTo(purchaseDateTo.value)">
+                            </div>
+                            <div class="col-2" style="margin-top: 35px; ">
+                                <button class="btn btn-danger  btn-sm" value="Reset" type="button" (click)="reset()">
+                                    {{'UPA.Reset' | translate }} </button>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-3">
+                                <label> {{'UPA.GroupBy'|translate}} </label>
+                                <div *ngIf="lang=='en'">
+                                    <select class="form-control  text-white" style="background-color: #11375E ; border: 2px white;"
+                                        #assetElement (change)="selectElement(assetElement.value)" value="null">
+                                        <option></option>
+                                        <option *ngFor="let assetElement of AssetElements" [value]="assetElement">
+                                            {{assetElement}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div *ngIf="lang=='ar'">
+                                    <select class="form-control  text-white" style="background-color: #11375E ;"
+                                        #assetElement (change)="selectElement(assetElement.value)" value="null">
+                                        <option [value]="null"></option>
+                                        <option *ngFor="let assetElement of AssetElementsAr" [value]="assetElement">
+                                            {{assetElement}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-danger btn-sm" style="margin-top: 35px;"
+                                    [style.display]="showGroupingBtn ? 'block' : 'none'" value="Reset" type="button"
+                                    (click)="checkGroupingValue()">
+                                    {{'UPA.CancelGrouping' |
+                                    translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----------------------------  All Data  ------------------------------------------>
+    <div class="card-list">
+        <div class="row tblstyle " id="pdfTable" #pdfTable *ngIf="selectedElement==null&&showSearch==false">
+            <div class="col-md-12">
+                <p-table #dt [value]="lstAssets" [rows]="10" pageLinks="10"
+                    styleClass="p-datatable-responsive-demo p-datatable-sm p-datatable-striped p-datatable-gridlines"
+                    [rowHover]="true" [paginatorTemplate]="customPaginator" dataKey="id" [scrollable]="true"
+                    scrollHeight="380px" [paginator]="true" [lazy]="true" [totalRecords]="count"
+                    (onLazyLoad)="clicktbl($event)" [loading]="loading">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th [sortable]="true">{{'UPA.Name' | translate}}
+                                <p-sortIcon id="{{'UPA.Name' | translate}}" (click)="sort($event)"
+                                    style="cursor: pointer; ">
+                                </p-sortIcon>
+                            </th>
+
+                            <th [sortable]="true">{{'UPA.Barcode' | translate}}
+                                <p-sortIcon id="{{'UPA.Barcode' | translate}}" (click)="sort($event)"
+                                    style="cursor: pointer; ">
+                                </p-sortIcon>
+                            </th>
+                            <th [sortable]="true">{{'UPA.Serial' | translate}}
+                                <p-sortIcon id="{{'UPA.Serial' | translate}}" (click)="sort($event) "
+                                    style="cursor: pointer; ">
+                                </p-sortIcon>
+                            </th>
+                            <th [sortable]="true">{{'UPA.Model' | translate}}
+                                <p-sortIcon id="{{'UPA.Model' | translate}}" (click)="sort($event)"
+                                    style="cursor: pointer; ">
+                                </p-sortIcon>
+                            </th>
+                            <th [sortable]="true">{{'UPA.Brand' | translate}}
+                                <p-sortIcon id="{{'UPA.Brand' | translate}}" (click)="sort($event)"
+                                    style="cursor: pointer;">
+                                </p-sortIcon>
+                            </th>
+                            <th [sortable]="true">{{'UPA.PurchaseDate' |translate}}
+                                <p-sortIcon id="{{'UPA.PurchaseDate' |translate}}" (click)="sort($event)"
+                                    style="cursor: pointer;">
+                                </p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-asset>
+                        <tr>
+                            <td>{{lang == "en"?asset.assetName:asset.assetNameAr}}</td>
+                            <td>{{asset.barCode}}</td>
+                            <td>{{asset.serialNumber}}</td>
+                            <td>{{asset.model}}</td>
+                            <td>{{lang == "en" ?asset.brandName:asset.brandNameAr}}</td>
+                            <td>{{asset.purchaseDate | date:'yyyy-MM-dd'}} </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td colspan="8"> {{'UPA.NoData' | translate }} </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+
+    <!-----------------------------  All Data for search  --------------------------------->
+    <div class="row " id="pdfTable" #pdfTable *ngIf="selectedElement==null&&showSearch==true">
+        <div class="col-12 card-list">
+            <p-table #dt [value]="lstAssets2" [rows]="10" styleClass="p-datatable-responsive-demo" [rowHover]="true"
+                dataKey="id" [paginator]="true" [lazy]="true" [totalRecords]="count" (onLazyLoad)="clicktbl2($event)"
+                [loading]="loading" [scrollable]="true"
+                scrollHeight="380px">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th [sortable]="true"> {{'UPA.Name' |translate}}
+                            <p-sortIcon id="{{'UPA.Name' |translate}}" style="cursor: pointer;"
+                                (click)="sortAfterSearch($event)">
+                            </p-sortIcon>
+                        </th>
+
+                        <th [sortable]="true"> {{'UPA.Barcode' | translate}}
+                            <p-sortIcon id="{{'UPA.Barcode' | translate}}" (click)="sortAfterSearch($event)"
+                                style="cursor: pointer;"> </p-sortIcon>
+                        </th>
+                        <th [sortable]="true">
+                            {{'UPA.Serial' | translate}}
+                            <p-sortIcon id="{{'UPA.Serial' | translate}}" (click)="sortAfterSearch($event)"
+                                style="cursor: pointer;"> </p-sortIcon>
+                        </th>
+                        <th [sortable]="true">
+                            {{'UPA.Model' | translate}}
+                            <p-sortIcon id="{{'UPA.Model' | translate}}" (click)="sortAfterSearch($event)"
+                                style="cursor: pointer;">
+                            </p-sortIcon>
+                        </th>
+                        <th [sortable]="true">
+                            {{'UPA.Brand' |translate}}
+                            <p-sortIcon id="{{'UPA.Brand' |translate}}" (click)="sortAfterSearch($event)"
+                                style="cursor: pointer;">
+                            </p-sortIcon>
+                        </th>
+                        <th [sortable]="true">
+                            {{'UPA.PurchaseDate'| translate}}
+                            <p-sortIcon id="{{'UPA.PurchaseDate'| translate}}" (click)="sortAfterSearch($event)"
+                                style="cursor: pointer;">
+                            </p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-asset>
+                    <tr>
+                        <td> {{lang == "en" ?asset.assetName:asset.assetNameAr}} </td>
+                        <td> {{asset.barcode}} </td>
+                        <td> {{asset.serialNumber}} </td>
+                        <td> {{asset.model}} </td>
+                        <td> {{lang == "en" ?asset.brandName:asset.brandNameAr}} </td>
+                        <td> {{asset.purchaseDate | date:'yyyy-MM-dd'}} </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td colspan="8"> {{'UPA.NoData' | translate }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <!-----------------------------  Grouping by brand  ------------------------------------>
+    <div class="row" *ngIf="selectedElement=='Brand' || selectedElement=='الصانع' ">
+        <div *ngFor="let item of lstBrandAsset">
+            <div *ngIf="item.assetList.length>0">
+                <button class="btn card-list" type="button" data-bs-toggle="collapse" (click)="toggleCollapse(item)"
+                    [attr.data-bs-target]="'#collapseBrand' + item.id" aria-expanded="false"
+                    [attr.aria-controls]="'collapseBrand' + item.id">
+                    {{ lang == 'en' ? item.name : item.nameAr }}
+                </button>
+                <div class="collapse card-list"
+                    [ngClass]="{ 'd-block': isSelected(item), 'd-none': !isSelected(item) }"
+                    [attr.id]="'collapseBrand' + item.id">
+
+                    <p-table #dt [value]="item.assetList" [rows]="10" styleClass="p-datatable-responsive-demo"
+                        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id" class="rowtbl"
+                        *ngIf="selectedElement!=null" [scrollable]="true" scrollHeight="380px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pSortableColumn="assetName">
+                                    {{'UPA.Name' | translate}}
+                                    <p-sortIcon field="assetName"> </p-sortIcon>
+                                </th>
+
+                                <th pSortableColumn="barcode">
+                                    {{'UPA.Barcode' | translate}}
+                                    <p-sortIcon field="barcode">
+                                    </p-sortIcon>
+                                </th>
+                                <th pSortableColumn="serialNumber">
+                                    {{'UPA.Serial' | translate}}
+                                    <p-sortIcon field="serialNumber">
+                                    </p-sortIcon>
+                                </th>
+                                <th pSortableColumn="model">
+                                    {{'UPA.Model' | translate}}
+                                    <p-sortIcon field="model">
+                                    </p-sortIcon>
+                                </th>
+                                <th pSortableColumn="brandName">
+                                    {{'UPA.Brand' |
+                                    translate}}
+                                    <p-sortIcon field="brandName">
+                                    </p-sortIcon>
+                                </th>
+                                <th pSortableColumn="purchaseDate">
+                                    {{'UPA.PurchaseDate' |
+                                    translate}}
+                                    <p-sortIcon field="purchaseDate">
+                                    </p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-asset>
+                            <tr>
+                                <td> {{lang == "en" ?asset.assetName:asset.assetNameAr}} </td>
+                                <td> {{asset.barcode}} </td>
+                                <td> {{asset.serialNumber}} </td>
+                                <td> {{asset.model}} </td>
+                                <td> {{lang == "en" ?asset.brandName:asset.brandNameAr}} </td>
+                                <td> {{asset.purchaseDate | date:'yyyy-MM-dd'}} </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+    <!-----------------------------  Grouping by Governorate  ------------------------------>
+    <div class="row" *ngIf="(selectedElement=='Governorate' || selectedElement=='المحافظه') ">
+
+        <div *ngFor="let item of lstGovAsset">
+            <div *ngIf="item.assetList.length>0">
+
+                <button class="btn card-list" type="button" data-bs-toggle="collapse" (click)="toggleCollapse(item)"
+                    [attr.data-bs-target]="'#collapseBrand' + item.id" aria-expanded="false"
+                    [attr.aria-controls]="'collapseBrand' + item.id">
+                    {{ lang == 'en' ? item.name : item.nameAr }}
+                </button>
+
+
+                <div class="collapse card-list" id="collapseBrand"
+                [ngClass]="{ 'd-block': isSelected(item), 'd-none': !isSelected(item) }"
+                [attr.id]="'collapseBrand' + item.id">
+
+                    <p-table #dt [value]="item.assetList" [rows]="10" styleClass="p-datatable-responsive-demo"
+                        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id" class="rowtbl"
+                        *ngIf="selectedElement!=null" [scrollable]="true" scrollHeight="380px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pSortableColumn="assetName">
+                                    {{'UPA.Name' | translate}}
+                                    <p-sortIcon field="assetName"> </p-sortIcon>
+                                </th>
+
+                                <th pSortableColumn="barcode">
+                                    {{'UPA.Barcode' | translate}}
+                                    <p-sortIcon field="barcode">
+                                    </p-sortIcon>
+                                </th>
+                                <th pSortableColumn="serialNumber">
+                                    {{'UPA.Serial' | translate}}
+                                    <p-sortIcon field="serialNumber">
+                                    </p-sortIcon>
+                                </th>
+                                <th pSortableColumn="model">
+                                    {{'UPA.Model' | translate}}
+                                    <p-sortIcon field="model">
+                                    </p-sortIcon>
+                                </th>
+                                <th pSortableColumn="brandName">
+                                    {{'UPA.Brand' |
+                                    translate}}
+                                    <p-sortIcon field="brandName">
+                                    </p-sortIcon>
+                                </th>
+                                <th pSortableColumn="purchaseDate">
+                                    {{'UPA.PurchaseDate' |
+                                    translate}}
+                                    <p-sortIcon field="purchaseDate">
+                                    </p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-asset>
+                            <tr>
+                                <td> {{lang == "en" ?asset.assetName:asset.assetNameAr}} </td>
+                                <td> {{asset.barcode}} </td>
+                                <td> {{asset.serialNumber}} </td>
+                                <td> {{asset.model}} </td>
+                                <td> {{lang == "en" ?asset.brandName:asset.brandNameAr}} </td>
+                                <td> {{asset.purchaseDate | date:'yyyy-MM-dd'}} </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+    <!-----------------------------  Grouping by Hospital ---------------------------------->
+    <div class="row" *ngIf="selectedElement=='hospital' || selectedElement=='المستشفى' ">
+        <div *ngFor="let item of lstHosAsset">
+            <div *ngIf="item.assetList.length>0">
+                <button class="btn card-list" type="button" data-bs-toggle="collapse" (click)="toggleCollapse(item)"
+                    [attr.data-bs-target]="'#collapseBrand' + item.id" aria-expanded="false"
+                    [attr.aria-controls]="'collapseBrand' + item.id">
+                    {{ lang == 'en' ? item.name : item.nameAr }}
+                </button>
+                <div class="collapse card-list" id="collapseBrand"
+                [ngClass]="{ 'd-block': isSelected(item), 'd-none': !isSelected(item) }"
+                [attr.id]="'collapseBrand' + item.id">
+                    <p-table #dt [value]="item.assetList" [rows]="10" styleClass="p-datatable-responsive-demo"
+                        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id" class="rowtbl"
+                        *ngIf="selectedElement!=null" [scrollable]="true" scrollHeight="380px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pSortableColumn="assetName"> {{'UPA.Name' | translate}} <p-sortIcon
+                                        field="assetName"> </p-sortIcon> </th>
+                                <th pSortableColumn="barcode"> {{'UPA.Barcode' | translate}}<p-sortIcon field="barcode">
+                                    </p-sortIcon> </th>
+                                <th pSortableColumn="serialNumber"> {{'UPA.Serial' | translate}} <p-sortIcon
+                                        field="serialNumber"> </p-sortIcon> </th>
+                                <th pSortableColumn="model"> {{'UPA.Model' | translate}} <p-sortIcon
+                                        field="model"></p-sortIcon> </th>
+                                <th pSortableColumn="brandName"> {{'UPA.Brand' | translate}} <p-sortIcon
+                                        field="brandName"> </p-sortIcon></th>
+                                <th pSortableColumn="purchaseDate"> {{'UPA.PurchaseDate' |translate}} <p-sortIcon
+                                        field="purchaseDate"> </p-sortIcon> </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-asset>
+                            <tr>
+                                <td> {{lang == "en" ?asset.assetName:asset.assetNameAr}} </td>
+                                <td> {{asset.barcode}} </td>
+                                <td> {{asset.serialNumber}} </td>
+                                <td> {{asset.model}} </td>
+                                <td> {{lang == "en" ?asset.brandName:asset.brandNameAr}} </td>
+                                <td> {{asset.purchaseDate | date:'yyyy-MM-dd'}} </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----------------------------  Grouping by Organization  ----------------------------->
+    <div class="row" *ngIf="selectedElement=='Organization' || selectedElement=='المؤسسه' ">
+        <div *ngFor="let item of lstOrgAsset">
+            <div *ngIf="item.assetList.length>0">
+                <button class="btn card-list" type="button" data-bs-toggle="collapse" (click)="toggleCollapse(item)"
+                    [attr.data-bs-target]="'#collapseBrand' + item.id" aria-expanded="false"
+                    [attr.aria-controls]="'collapseBrand' + item.id">
+                    {{ lang == 'en' ? item.name : item.nameAr }}
+                </button>
+                <div class="collapse card-list" id="collapseBrand"
+                [ngClass]="{ 'd-block': isSelected(item), 'd-none': !isSelected(item) }"
+                [attr.id]="'collapseBrand' + item.id">
+                    <p-table #dt [value]="item.assetList" [rows]="10" styleClass="p-datatable-responsive-demo"
+                        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id" class="rowtbl"
+                        *ngIf="selectedElement!=null" [scrollable]="true" scrollHeight="380px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pSortableColumn="assetName"> {{'UPA.Name' | translate}} <p-sortIcon
+                                        field="assetName"> </p-sortIcon> </th>
+                                <th pSortableColumn="barcode"> {{'UPA.Barcode' | translate}}<p-sortIcon field="barcode">
+                                    </p-sortIcon> </th>
+                                <th pSortableColumn="serialNumber"> {{'UPA.Serial' | translate}} <p-sortIcon
+                                        field="serialNumber"> </p-sortIcon> </th>
+                                <th pSortableColumn="model"> {{'UPA.Model' | translate}} <p-sortIcon
+                                        field="model"></p-sortIcon> </th>
+                                <th pSortableColumn="brandName"> {{'UPA.Brand' | translate}} <p-sortIcon
+                                        field="brandName"> </p-sortIcon></th>
+                                <th pSortableColumn="purchaseDate"> {{'UPA.PurchaseDate' |translate}} <p-sortIcon
+                                        field="purchaseDate"> </p-sortIcon> </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-asset>
+                            <tr>
+                                <td> {{lang == "en" ?asset.assetName:asset.assetNameAr}} </td>
+                                <td> {{asset.barcode}} </td>
+                                <td> {{asset.serialNumber}} </td>
+                                <td> {{asset.model}} </td>
+                                <td> {{lang == "en" ?asset.brandName:asset.brandNameAr}} </td>
+                                <td> {{asset.purchaseDate | date:'yyyy-MM-dd'}} </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----------------------------  Grouping by SubOrganization  --------------------------->
+    <div class="row" *ngIf="selectedElement=='SubOrganization' || selectedElement=='المؤسسه الفرعيه' ">
+        <div *ngFor="let item of lstSubOrgAsset">
+            <div *ngIf="item.assetList.length>0">
+                <button class="btn card-list" type="button" data-bs-toggle="collapse" (click)="toggleCollapse(item)"
+                    [attr.data-bs-target]="'#collapseBrand' + item.id" aria-expanded="false"
+                    [attr.aria-controls]="'collapseBrand' + item.id">
+                    {{ lang == 'en' ? item.name : item.nameAr }}
+                </button>
+                <div class="collapse card-list" id="collapseBrand"
+                [ngClass]="{ 'd-block': isSelected(item), 'd-none': !isSelected(item) }"
+                [attr.id]="'collapseBrand' + item.id">
+                    <p-table #dt [value]="item.assetList" [rows]="10" styleClass="p-datatable-responsive-demo"
+                        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id" class="rowtbl"
+                        *ngIf="selectedElement!=null" [scrollable]="true" scrollHeight="380px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pSortableColumn="assetName"> {{'UPA.Name' | translate}} <p-sortIcon
+                                        field="assetName"> </p-sortIcon> </th>
+                                <th pSortableColumn="barcode"> {{'UPA.Barcode' | translate}}<p-sortIcon field="barcode">
+                                    </p-sortIcon> </th>
+                                <th pSortableColumn="serialNumber"> {{'UPA.Serial' | translate}} <p-sortIcon
+                                        field="serialNumber"> </p-sortIcon> </th>
+                                <th pSortableColumn="model"> {{'UPA.Model' | translate}} <p-sortIcon
+                                        field="model"></p-sortIcon> </th>
+                                <th pSortableColumn="brandName"> {{'UPA.Brand' | translate}} <p-sortIcon
+                                        field="brandName"> </p-sortIcon></th>
+                                <th pSortableColumn="purchaseDate"> {{'UPA.PurchaseDate' |translate}} <p-sortIcon
+                                        field="purchaseDate"> </p-sortIcon> </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-asset>
+                            <tr>
+                                <td> {{lang == "en" ?asset.assetName:asset.assetNameAr}} </td>
+                                <td> {{asset.barcode}} </td>
+                                <td> {{asset.serialNumber}} </td>
+                                <td> {{asset.model}} </td>
+                                <td> {{lang == "en" ?asset.brandName:asset.brandNameAr}} </td>
+                                <td> {{asset.purchaseDate | date:'yyyy-MM-dd'}} </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>

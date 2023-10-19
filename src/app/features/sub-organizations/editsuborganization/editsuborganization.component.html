@@ -1,0 +1,88 @@
+
+<div class="card">
+  <div class="card-body">
+    <form class="form-horizontal" (ngSubmit)="onSubmit()" #form="ngForm">
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control fieldCode" [ngModelOptions]="{standalone: true}"
+           pTooltip="{{'UPA.Code' | translate}}" tooltipPosition="top" [(ngModel)]="subOrgObj.code" name="code" required #code="ngModel"
+            [class.is-invalid]="(code.touched && code.errors) || form.submitted" [class.is-valid]="code.valid && form.submitted" />
+        </div>
+         </div>
+  <div class="row ">
+        <div class="col-4">
+          <label [translate]="'UPA.Organization'"></label>
+          <select [(ngModel)]="subOrgObj.organizationId" class="form-control" [ngModelOptions]="{standalone: true}"
+            (change)="onOrgChange($event)" [value]="0" >
+            <option value="0"></option>
+            <option *ngFor="let item of lstOrganizations" [value]="item.id"
+              [selected]="item.id == subOrgObj.organizationId">
+              {{lang =='en' ? item.name:item.nameAr}}</option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label for="orgname" [translate]="'UPA.Name'"></label>
+          <input type="text" class="form-control"[(ngModel)]="subOrgObj.name" name="orgname" required #name="ngModel"
+            [class.is-invalid]="(name.touched && name.errors) || form.submitted" [class.is-valid]="name.valid && form.submitted" />
+        </div>
+        <div class="col-4">
+          <label for="nameAr" [translate]="'UPA.ArabicName'"></label>
+          <input type="text" class="form-control" name="nameAr" [(ngModel)]="subOrgObj.nameAr" />
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-4">
+          <label for="directorName" [translate]="'UPA.DirectorName'"></label>
+          <input type="text" class="form-control" [(ngModel)]="subOrgObj.directorName" name="directorName" />
+        </div>
+        <div class="col-4">
+          <label for="directorNameAr" [translate]="'UPA.ArabicDirectorName'"></label>
+          <input type="text" class="form-control" [(ngModel)]="subOrgObj.directorNameAr" name="directorNameAr" />
+        </div>
+        <div class="col-4">
+          <label for="mobile" [translate]="'UPA.Mobile'"></label>
+          <input type="tel" class="form-control" [(ngModel)]="subOrgObj.mobile" name="mobile" />
+        </div>
+      </div>
+          <div class="row">
+        <div class="col">
+          <label for="email" [translate]="'UPA.EMail'"></label>
+          <input type="email" class="form-control" [(ngModel)]="subOrgObj.email" name="email" />
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-6">
+          <label for="address" [translate]="'UPA.Address'"></label>
+          <textarea type="text" rows="2" cols="30" class="form-control" [(ngModel)]="subOrgObj.address" name="address"></textarea>
+        </div>
+        <div class="col-6">
+          <label for="addressAr" [translate]="'UPA.ArabicAddress'"></label>
+          <textarea type="text" rows="2" cols="30" class="form-control" [(ngModel)]="subOrgObj.addressAr" name="addressAr"></textarea>
+        </div>
+      </div>
+
+
+      <div class="row ">
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-success" [translate]="'UPA.Save'"></button>
+        </div>
+    </div>
+    </form>
+
+
+  </div>
+</div>
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+  <ng-template pTemplate="header">
+    <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;"> {{ "UPA.Save" | translate }}</h6>
+  </ng-template>
+  <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ "UPA.SavedSuccess" | translate
+    }}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{width: '350px'}">
+  <p-header style="color: rgb(181, 4, 4);"> Error </p-header>
+  <span style="color: rgb(181, 4, 4);font-weight: bold;"> {{errorMessage}}</span>
+</p-dialog>

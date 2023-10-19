@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-10">
+        <h4 class="card-title"> {{ 'UPA.OrgGovernorate' | translate}}</h4>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row ">
+      <div class="col-6">
+        <ng-multiselect-dropdown appendTo="body" [placeholder]="'UPA.Category'|translate" [settings]="dropdownSettings"
+          [data]="lstCategories" [(ngModel)]="selectedCategoryItems" (onSelect)="onCategorySelect($event)"
+          (onSelectAll)="onCategorySelectAll($event)" (onDeSelect)="onCategoryDeselect($event)"
+          (onDeSelectAll)="onCategoryDeselectAll($event)">
+        </ng-multiselect-dropdown>
+
+      </div>
+      <div class="col-6">
+        <ng-multiselect-dropdown appendTo="body" [placeholder]="'UPA.Brands'|translate" [settings]="dropdownSettings"
+        [data]="lstBrands" [(ngModel)]="selectedBrandIds" (onSelect)="onBrandSelect($event)"
+        (onSelectAll)="onBrandSelectAll($event)" (onDeSelect)="onBrandDeselect($event)"
+        (onDeSelectAll)="onBrandDeselectAll($event)">
+      </ng-multiselect-dropdown>
+    <!-- <mat-select multiple [placeholder]="'UPA.Brands' | translate" (selectionChange)="changeBrand()"
+          [(ngModel)]="selectedBrandIds" name="selectedBrandIds">
+          <mat-option *ngFor="let brnd of lstBrands" [value]="brnd.id">
+            {{ lang == "en" ? brnd.name : brnd.nameAr }}
+          </mat-option>
+        </mat-select>  -->
+      </div>
+    </div>
+  </div>
+  <div class="row top-buffer">  </div>
+
+
+
+    <div class="card-list">
+      <div class="col-12">
+        <table class="table  table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th *ngFor="let org of lstOrganizations">
+                {{ lang == "en" ? org.name : org.nameAr }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let gov of lstGovernorates">
+              <td>{{ lang == "en" ? gov.name : gov.nameAr }}</td>
+              <td *ngFor="let org of lstOrganizations">
+                <span *ngFor="let match of findMatch2(gov, org)">
+                  {{ match.count > 0 ? match.count : 0 }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+</div>

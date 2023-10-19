@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-header">
+        <div>
+       <h4 class="card-title"> {{ 'UPA.OrgGovAssets' | translate }}</h4> 
+        </div>   
+    </div> 
+    <div class="card-body">
+      <ng-container *ngIf="chartOptions">
+      <apx-chart
+      [series]="chartOptions.series!"
+      [chart]="chartOptions.chart"
+      [dataLabels]="chartOptions.dataLabels"
+      [plotOptions]="chartOptions.plotOptions"
+      [yaxis]="chartOptions.yaxis"
+      [legend]="chartOptions.legend"
+      [fill]="chartOptions.fill"
+      [stroke]="chartOptions.stroke"
+      [tooltip]="chartOptions.tooltip"
+      [xaxis]="chartOptions.xaxis"
+    ></apx-chart>
+  
+  </ng-container>
+    </div></div>
