@@ -5,7 +5,7 @@
         <h4 class="card-title"> {{ 'UPA.CatGovernorate' | translate}}</h4>
       </div>
       <div class="col-1"> <button class="btn exportIcon" (click)=" generateExcel()">
-        <i class="fa-solid fa-download fa-beat fa-xl"></i></button>
+        <i class="fa-solid fa-download fa-beat fa-xl" [title]="lang=='en'? 'download excel':' تحميل  excel'"></i></button>
       </div>
     </div>
   </div>

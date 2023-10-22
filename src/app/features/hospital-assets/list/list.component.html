@@ -7,7 +7,7 @@
             </div>
            
 
-             <div class="col-1"> <button class="btn exportIcon" (click)="generateExcel()"><i
+             <div class="col-1"> <button class="btn exportIcon" (click)="generateExcel()"  [title]="lang=='en'? 'download excel':'تحميل  excel '"><i
                         class="fa-solid fa-download fa-beat fa-lg"></i></button>
             </div>
              <div class="col-7"></div>
@@ -88,7 +88,7 @@
 
 
                 <th> <div >
-                        <a class="btn resetIcon" (click)="  clearSearch()">
+                        <a class="btn resetIcon" (click)="  clearSearch()" [title]="lang=='en'? 'reset search':'إلغاء البحث'" >
                             <i class="fa-solid fa-x "></i></a>
                     </div></th>
                 </tr>

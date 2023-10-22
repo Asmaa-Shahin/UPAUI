@@ -61,7 +61,7 @@
                                 (onDeSelect)="onModelDeselect($event)" (onDeSelectAll)="onModelDeselectAll($event)">
                             </ng-multiselect-dropdown></th>
                             <th> <div>
-                                <a class="btn resetIcon" (click)="  clearSearch()">
+                                <a class="btn resetIcon" [title]="lang=='en'? 'reset search':'إلغاء البحث'" (click)="  clearSearch()">
                                     <i class="fa-solid fa-x "></i></a>
                             </div></th>
                         </tr>
