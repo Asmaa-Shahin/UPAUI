@@ -16,7 +16,8 @@
     </ng-multiselect-dropdown>
     </div>
     
-    <div class="col-4">
+    <div class="col-4">  
+      
       <ng-multiselect-dropdown   class="custom-dropdown-width" [placeholder]="'UPA.Category'|translate"
         [settings]="dropdownSettings" [data]="lstCategories" [(ngModel)]="selectedCategoryItems"
         (onSelect)="onCatSelect($event)" (onSelectAll)="onCatSelectAll($event)"
