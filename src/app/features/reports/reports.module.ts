@@ -27,6 +27,30 @@ import { GovorgassetComponent } from './govorgasset/govorgasset.component';
 
 import { GovPopulationNumberComponent } from './gov-population-number/gov-population-number.component';
 import { AssetAgeGroupsComponent } from './asset-age-groups/asset-age-groups.component';
+import { AssetLifeTimeComponent } from './asset-life-time/asset-life-time.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BadgeModule } from 'primeng/badge';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PaginatorModule } from 'primeng/paginator';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TooltipModule } from 'primeng/tooltip';
+import { HospitalAssetsRoutingModule } from '../hospital-assets/hospital-assets-routing.module';
 
 
 @NgModule({
@@ -42,13 +66,15 @@ import { AssetAgeGroupsComponent } from './asset-age-groups/asset-age-groups.com
     GovorgassetComponent,
  
     GovPopulationNumberComponent,
-      AssetAgeGroupsComponent
+      AssetAgeGroupsComponent,
+      AssetLifeTimeComponent
   ],
   imports: [
     ScrollingModule,
     CommonModule,
     FormsModule,
-
+    MatTabsModule,
+    MatInputModule,
     ReactiveFormsModule,
     TranslateModule,
     ReportsRoutingModule,
@@ -61,7 +87,45 @@ import { AssetAgeGroupsComponent } from './asset-age-groups/asset-age-groups.com
     DialogModule,
     NgApexchartsModule,
     CarouselModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule,
+    MatDialogModule,
+    DialogModule,
+    MatTabsModule,
+    MatInputModule,
+    TranslateModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    MultiSelectModule,
+    MatListModule,
+    MatSidenavModule,
+    MatDatepickerModule,
+  
+    MatNativeDateModule,
+    MatSelectModule,
+    MatExpansionModule,
+    ConfirmDialogModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    TooltipModule,
+    MatNativeDateModule,
+    CheckboxModule,
+    HospitalAssetsRoutingModule,
+    PaginatorModule,
+   
+    MatButtonModule,
+
+    BadgeModule,
+    MatBadgeModule,
+    MatListModule,
+    MatButtonModule,
+    CalendarModule,
+    RadioButtonModule,
+    MatProgressSpinnerModule,
+   
+    PaginatorModule,
   ]
 })
 export class ReportsModule { }

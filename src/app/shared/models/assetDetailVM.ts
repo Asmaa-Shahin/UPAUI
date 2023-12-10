@@ -18,6 +18,8 @@ export class ListAssetDetailVM {
     hospitalNameAr: string;
     governorateName: string;
     governorateNameAr: string;
+    ageOfAsset?:number;
+   
     cityName: string;
     cityNameAr: string;
     masterAssetId: number;
@@ -490,10 +492,18 @@ export class SortAndSearchAssetVM {
   
    hospitalId? :number[]=[];
   govId ?:number[];
+  subOrgId ?:number[];
+  orgId ?:number[];
   categoryId?:number[]=[];
   subCategoryId? :number[]=[];
 
  model?:number[] ;
+ minAgeByYear?:number;
+ maxAgeByYear?:number;
+ minAgeByMonth?:number;
+ maxAgeByMonth?:number;
+ minExpectedLife?:number;
+ maxExpectedLife?:number;
  purchaseDateFrom?: Date;
  purchaseDateTo?: Date;
  strPurchaseDateFrom?:string; 

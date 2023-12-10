@@ -90,6 +90,10 @@
             <a ngbDropdownItem [routerLink]="['/dash/report/assetagegroups']">
               <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.assetagegroups' | translate}}</a>
           </li>
+          <li [ngStyle]="lang =='en' ? {'text-align': 'left'} : {  'text-align': 'right'}">
+            <a ngbDropdownItem [routerLink]="['/dash/report/assetLifeTime']">
+              <i class="pi pi-chart-bar" style="padding: 0px 10px;"></i>{{'UPA.assetLifeTime' | translate}}</a>
+          </li>
         </ul>
       </div>
       <div ngbDropdown class="dropdown">

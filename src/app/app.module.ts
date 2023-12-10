@@ -1,7 +1,7 @@
 import {  NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -79,6 +79,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DeleteModule } from './shared/delete/delete.module';
+import { ViewErrorComponent } from './shared/error/view-error/view-error.component';
+import { ErrorService } from './shared/services/error.service';
 
 
 
@@ -88,6 +90,7 @@ import { DeleteModule } from './shared/delete/delete.module';
     AppComponent,
     LoginComponent,
     ForgetpasswordComponent,
+    ViewErrorComponent,
 
   ],
   imports: [
@@ -199,7 +202,19 @@ DeleteModule
     DialogService, ConfirmationService, DatePipe],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+  constructor(private errorService: ErrorService, private route: Router) {
+    this.errorService.validateMacAddress().subscribe(validMac => {
+      //this.route.navigate(['']);
+    },
+      error => {
+        this.route.navigate(['/errors']);
+      });
+  }
+
+
+}
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {

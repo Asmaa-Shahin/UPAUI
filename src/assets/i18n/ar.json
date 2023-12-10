@@ -4,6 +4,9 @@
                 "govpopulationnumber":"المحافظات الأكثر احتياجا",
                 "govorasset":"عدد الاصول بناءا على الهيئات والمحافظات",
                 "Id": "م",
+                "assetLifeTime":"البحث بعمر الجهاز",
+        "AssetAge":"عمر الجهاز",
+        "ExpectedLife":"العمر المفترض",
                 "Language": "English",
                 "Home": "الصفحة الرئيسة",
                 "DashBoard": "الصفحة الرئيسة",
@@ -234,7 +237,7 @@
                
                 "SearchOnAsset": "بحث عن أصل",
                 "Search": "بحث",
-                "Filter": "فلتر",
+                "Filter": "البحث بالمحددات",
 
                 "DepreciationRate": "معدل الإهلاك",
                 "CostCenter": "رقم الحساب",

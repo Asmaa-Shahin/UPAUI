@@ -11,6 +11,7 @@ import { GeosearchComponent } from './geosearch/geosearch.component';
 import { GovorgassetComponent } from './govorgasset/govorgasset.component';
 import { GovPopulationNumberComponent } from './gov-population-number/gov-population-number.component';
 import { AssetAgeGroupsComponent } from './asset-age-groups/asset-age-groups.component';
+import { AssetLifeTimeComponent } from './asset-life-time/asset-life-time.component';
 const routes: Routes = [
   { path: 'categorygovernorate', component: CatgovernorateComponent },
   { path: 'orggovernorate', component: OrggovernorateComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'govorgasset', component: GovorgassetComponent },
   { path:'govpopulationnumber', component: GovPopulationNumberComponent },
   { path:'assetagegroups', component: AssetAgeGroupsComponent },
+  { path:'assetLifeTime', component: AssetLifeTimeComponent },
 ];
 
 @NgModule({

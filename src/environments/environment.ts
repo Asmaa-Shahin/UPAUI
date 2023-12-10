@@ -5,6 +5,9 @@
 export const environment = {
   production: false,
   Domain: 'http://localhost:42082/',
+  getMacAddress: 'http://localhost:42082/api/Error/GetMacAddress',
+
+
   Login: "http://localhost:42082/api/Account/login",
   SortAssetDetail: "http://localhost:42082/api/AssetDetails/SortAssetDetail",
   ListGovernorates: "http://localhost:42082/api/Governorate/ListGovernorates",
