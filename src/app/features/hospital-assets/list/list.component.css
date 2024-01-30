@@ -38,3 +38,12 @@
   display: flex !important;
   justify-content: center !important;
 }
+.p-datatable.custom-table-height {
+  height: 400px !important;
+  overflow-y: auto !important;
+}
+.p-datatable>.p-datatable-wrapper {
+ 
+  padding: 10px !important;
+}
+

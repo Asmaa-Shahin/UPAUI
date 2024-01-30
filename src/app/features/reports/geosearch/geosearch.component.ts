@@ -350,6 +350,7 @@ console.log(field.currentTarget.id);
 
     this.assetDetailService.GetAssetDetailsByGovIdAndHospitalIdAndDepartmentId2(this.deptId, this.governorateId, this.hospitalId,  this.page.pagenumber, this.page.pagesize).subscribe(data => {
       this.lstAssets = data.results;
+      console.log(this.lstAssets);
       this.count = data.count;
     });
     this.showDiv3 = true;

@@ -151,8 +151,8 @@
                                 </p-sortIcon>
                             </th>
 
-                            <th [sortable]="true">{{'UPA.Barcode' | translate}}
-                                <p-sortIcon id="{{'UPA.Barcode' | translate}}" (click)="sort($event)"
+                            <th [sortable]="true">{{'UPA.Code' | translate}}
+                                <p-sortIcon id="{{'UPA.Code' | translate}}" (click)="sort($event)"
                                     style="cursor: pointer; ">
                                 </p-sortIcon>
                             </th>
@@ -181,7 +181,7 @@
                     <ng-template pTemplate="body" let-asset>
                         <tr>
                             <td>{{lang == "en"?asset.assetName:asset.assetNameAr}}</td>
-                            <td>{{asset.barCode}}</td>
+                            <td>{{asset.code}}</td>
                             <td>{{asset.serialNumber}}</td>
                             <td>{{asset.model}}</td>
                             <td>{{lang == "en" ?asset.brandName:asset.brandNameAr}}</td>
@@ -213,8 +213,8 @@
                             </p-sortIcon>
                         </th>
 
-                        <th [sortable]="true"> {{'UPA.Barcode' | translate}}
-                            <p-sortIcon id="{{'UPA.Barcode' | translate}}" (click)="sortAfterSearch($event)"
+                        <th [sortable]="true"> {{'UPA.Code' | translate}}
+                            <p-sortIcon id="{{'UPA.Code' | translate}}" (click)="sortAfterSearch($event)"
                                 style="cursor: pointer;"> </p-sortIcon>
                         </th>
                         <th [sortable]="true">
@@ -245,7 +245,7 @@
                 <ng-template pTemplate="body" let-asset>
                     <tr>
                         <td> {{lang == "en" ?asset.assetName:asset.assetNameAr}} </td>
-                        <td> {{asset.barcode}} </td>
+                        <td> {{asset.code}} </td>
                         <td> {{asset.serialNumber}} </td>
                         <td> {{asset.model}} </td>
                         <td> {{lang == "en" ?asset.brandName:asset.brandNameAr}} </td>
@@ -284,9 +284,9 @@
                                     <p-sortIcon field="assetName"> </p-sortIcon>
                                 </th>
 
-                                <th pSortableColumn="barcode">
-                                    {{'UPA.Barcode' | translate}}
-                                    <p-sortIcon field="barcode">
+                                <th pSortableColumn="Code">
+                                    {{'UPA.Code' | translate}}
+                                    <p-sortIcon field="Code">
                                     </p-sortIcon>
                                 </th>
                                 <th pSortableColumn="serialNumber">
@@ -367,9 +367,9 @@
                                     <p-sortIcon field="assetName"> </p-sortIcon>
                                 </th>
 
-                                <th pSortableColumn="barcode">
-                                    {{'UPA.Barcode' | translate}}
-                                    <p-sortIcon field="barcode">
+                                <th pSortableColumn="Code">
+                                    {{'UPA.Code' | translate}}
+                                    <p-sortIcon field="Code">
                                     </p-sortIcon>
                                 </th>
                                 <th pSortableColumn="serialNumber">
@@ -399,7 +399,7 @@
                         <ng-template pTemplate="body" let-asset>
                             <tr>
                                 <td> {{lang == "en" ?asset.assetName:asset.assetNameAr}} </td>
-                                <td> {{asset.barcode}} </td>
+                                <td> {{asset.code}} </td>
                                 <td> {{asset.serialNumber}} </td>
                                 <td> {{asset.model}} </td>
                                 <td> {{lang == "en" ?asset.brandName:asset.brandNameAr}} </td>
@@ -442,7 +442,7 @@
                             <tr>
                                 <th pSortableColumn="assetName"> {{'UPA.Name' | translate}} <p-sortIcon
                                         field="assetName"> </p-sortIcon> </th>
-                                <th pSortableColumn="barcode"> {{'UPA.Barcode' | translate}}<p-sortIcon field="barcode">
+                                <th pSortableColumn="Code"> {{'UPA.Code' | translate}}<p-sortIcon field="Code">
                                     </p-sortIcon> </th>
                                 <th pSortableColumn="serialNumber"> {{'UPA.Serial' | translate}} <p-sortIcon
                                         field="serialNumber"> </p-sortIcon> </th>
@@ -457,7 +457,7 @@
                         <ng-template pTemplate="body" let-asset>
                             <tr>
                                 <td> {{lang == "en" ?asset.assetName:asset.assetNameAr}} </td>
-                                <td> {{asset.barcode}} </td>
+                                <td> {{asset.code}} </td>
                                 <td> {{asset.serialNumber}} </td>
                                 <td> {{asset.model}} </td>
                                 <td> {{lang == "en" ?asset.brandName:asset.brandNameAr}} </td>
@@ -489,7 +489,7 @@
                             <tr>
                                 <th pSortableColumn="assetName"> {{'UPA.Name' | translate}} <p-sortIcon
                                         field="assetName"> </p-sortIcon> </th>
-                                <th pSortableColumn="barcode"> {{'UPA.Barcode' | translate}}<p-sortIcon field="barcode">
+                                <th pSortableColumn="code"> {{'UPA.Code' | translate}}<p-sortIcon field="barcode">
                                     </p-sortIcon> </th>
                                 <th pSortableColumn="serialNumber"> {{'UPA.Serial' | translate}} <p-sortIcon
                                         field="serialNumber"> </p-sortIcon> </th>
@@ -536,7 +536,7 @@
                             <tr>
                                 <th pSortableColumn="assetName"> {{'UPA.Name' | translate}} <p-sortIcon
                                         field="assetName"> </p-sortIcon> </th>
-                                <th pSortableColumn="barcode"> {{'UPA.Barcode' | translate}}<p-sortIcon field="barcode">
+                                <th pSortableColumn="code"> {{'UPA.Code' | translate}}<p-sortIcon field="barcode">
                                     </p-sortIcon> </th>
                                 <th pSortableColumn="serialNumber"> {{'UPA.Serial' | translate}} <p-sortIcon
                                         field="serialNumber"> </p-sortIcon> </th>
@@ -551,7 +551,7 @@
                         <ng-template pTemplate="body" let-asset>
                             <tr>
                                 <td> {{lang == "en" ?asset.assetName:asset.assetNameAr}} </td>
-                                <td> {{asset.barcode}} </td>
+                                <td> {{asset.code}} </td>
                                 <td> {{asset.serialNumber}} </td>
                                 <td> {{asset.model}} </td>
                                 <td> {{lang == "en" ?asset.brandName:asset.brandNameAr}} </td>

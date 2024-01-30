@@ -239,6 +239,11 @@ this.masterAssetService.SortMasterAssetafterSearch(this.sortObject2,0,0).subscri
 
 
   }
+  highlightCoulmn(){
+   
+    this.pageNumber =1;
+    this.pageSize =10;
+  }
   sortAfterSearch(event) {
  
   
@@ -320,11 +325,19 @@ this.masterAssetService.SortMasterAssetafterSearch(this.sortObject2,0,0).subscri
     });
 
   }
-  checkAssetAge(item){
-    var assetYear=Math.floor(item / 12);
-    return  assetYear+'years' +','+((item % 12) +'months') ;
+  checkAssetAge(item) {
+    const assetYear = Math.floor(item / 12);
+    const assetMonths = item % 12;
 
-  }
+    if (this.lang === 'ar') {
+        const yearsText = assetYear > 0 ? `${assetYear} سنة` : '';
+        const monthsText = assetMonths > 0 ? ` و ${assetMonths} شهر` : '';
+
+        return `${yearsText}${monthsText}`;
+    } else {
+        return `${assetYear} years, ${assetMonths} months`;
+    }
+}
   filterByGov(event){
 
   }
@@ -384,7 +397,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.govIds.push(item.id);
-
+    this.highlightCoulmn();
     this.sortObject.searchBy.govId = this.govIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -394,6 +407,7 @@ else{
   onSelectAll(items: any) {
     this.selectAll=false;
     this.notSelected=false;
+    this.highlightCoulmn();
     items.forEach(element => {
       this.govIds.push(element.id);
     });
@@ -406,6 +420,7 @@ else{
   onItemDeselect(item: any) {
     this.selectAll=false;
     this.notSelected=false;
+    this.highlightCoulmn();
     const index = this.govIds.indexOf(item.id);
     if (index !== -1) {
       this.govIds.splice(index, 1);
@@ -419,6 +434,7 @@ else{
   onDeselectAll(event) {
     this.selectAll=false;
     this.notSelected=false;
+    this.highlightCoulmn();
     this.govIds = [];
     this.sortObject.searchBy.govId = this.govIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
@@ -432,6 +448,7 @@ else{
   onNameSelect(item: any) {
     this.selectAll=false;
     this.notSelected=false;
+    this.highlightCoulmn();
     this.lstNames.push(this.lang=='en'?item.assetName:item.assetNameAr);
 
     this.sortObject.searchBy.name = this.lstNames;
@@ -443,6 +460,7 @@ else{
   onNameSelectAll(items: any) {
     this.selectAll=false;
     this.notSelected=false;
+    this.highlightCoulmn();
     items.forEach(element => {
       this.lstNames.push(this.lang=='en'?element.assetName:element.assetNameAr);
     });
@@ -455,6 +473,7 @@ else{
   onNameDeselect(item: any) {
     this.selectAll=false;
     this.notSelected=false;
+    this.highlightCoulmn();
     const index = this.lstNames.indexOf(this.lang=='en'?item.assetName:item.assetNameAr);
     if (index !== -1) {
       this.lstNames.splice(index, 1);
@@ -469,6 +488,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.lstNames = [];
+    this.highlightCoulmn();
     this.sortObject.searchBy.name = this.lstNames;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -481,7 +501,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.lstHospital.push(item.id);
-
+    this.highlightCoulmn();
     this.sortObject.searchBy.hospitalId = this.lstHospital;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -493,6 +513,7 @@ else{
     items.forEach(element => {
       this.lstHospital.push(element.id);
     });
+    this.highlightCoulmn();
     this.sortObject.searchBy.hospitalId = this.lstHospital;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -506,6 +527,7 @@ else{
     if (index !== -1) {
       this.lstHospital.splice(index, 1);
     }
+    this.highlightCoulmn();
     this.sortObject.searchBy.hospitalId = this.lstHospital;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -516,6 +538,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.lstHospital = [];
+    this.highlightCoulmn();
     this.sortObject.searchBy.hospitalId = this.lstHospital;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -528,7 +551,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.lstBrandIds.push(item.id);
-
+    this.highlightCoulmn();
     this.sortObject.searchBy.brandId = this.lstBrandIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -541,6 +564,7 @@ else{
     items.forEach(element => {
       this.lstBrandIds.push(element.id);
     });
+    this.highlightCoulmn();
     this.sortObject.searchBy.brandId = this.lstBrandIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -554,6 +578,7 @@ else{
     if (index !== -1) {
       this.lstBrandIds.splice(index, 1);
     }
+    this.highlightCoulmn();
     this.sortObject.searchBy.brandId = this.lstBrandIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -565,6 +590,7 @@ else{
     this.notSelected=false;
     this.lstBrandIds = [];
     this.sortObject.searchBy.brandId = this.lstBrandIds;
+    this.highlightCoulmn();
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
       this.count = result.count;
@@ -574,7 +600,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.lstSubOrgIds.push(item.id);
-
+    this.highlightCoulmn();
     this.sortObject.searchBy.subOrgId = this.lstSubOrgIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -585,6 +611,7 @@ else{
       this.selectAll=false;
       this.notSelected=false;
       const index = this.lstSubOrgIds.indexOf(item.id);
+      this.highlightCoulmn();
       if (index !== -1) {
         this.lstSubOrgIds.splice(index, 1);
       }
@@ -600,6 +627,7 @@ else{
       this.notSelected=false;
       this.lstSubOrgIds = [];
       this.sortObject.searchBy.subOrgId = this.lstSubOrgIds;
+      this.highlightCoulmn();
       this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
         this.lstAssets = result.results;
         this.count = result.count;
@@ -611,6 +639,7 @@ else{
     items.forEach(element => {
       this.lstSubOrgIds.push(element.id);
     });
+    this.highlightCoulmn();
     this.sortObject.searchBy.subOrgId = this.lstSubOrgIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -624,7 +653,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.lstOrgIds.push(item.id);
-
+    this.highlightCoulmn();
     this.sortObject.searchBy.orgId = this.lstOrgIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -635,6 +664,7 @@ else{
   onOrgDeselect(item){
     this.selectAll=false;
     this.notSelected=false;
+    this.highlightCoulmn();
     const index = this.lstOrgIds.indexOf(item.id);
     if (index !== -1) {
       this.lstOrgIds.splice(index, 1);
@@ -649,6 +679,7 @@ else{
   onOrgDeselectAll(event){
     this.selectAll=false;
     this.notSelected=false;
+    this.highlightCoulmn();
     this.lstOrgIds = [];
     this.sortObject.searchBy.orgId = this.lstOrgIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
@@ -659,6 +690,7 @@ else{
   onOrgSelectAll(items){
     this.selectAll=false;
     this.notSelected=false;
+    this.highlightCoulmn();
     items.forEach(element => {
       this.lstOrgIds.push(element.id);
     });
@@ -674,7 +706,7 @@ else{
     this.notSelected=false;
 
     this.lstCategoryIds.push(item.id);
-
+    this.highlightCoulmn();
     this.sortObject.searchBy.categoryId = this.lstCategoryIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -687,6 +719,7 @@ else{
     items.forEach(element => {
       this.lstCategoryIds.push(element.id);
     });
+    this.highlightCoulmn();
     this.sortObject.searchBy.categoryId = this.lstCategoryIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -700,6 +733,7 @@ else{
     if (index !== -1) {
       this.lstCategoryIds.splice(index, 1);
     }
+    this.highlightCoulmn();
     this.sortObject.searchBy.categoryId = this.lstCategoryIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -711,6 +745,7 @@ else{
     this.notSelected=false;
     this.lstCategoryIds = [];
     this.sortObject.searchBy.categoryId = this.lstCategoryIds;
+    this.highlightCoulmn();
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
       this.count = result.count;
@@ -724,7 +759,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.lstSubCategoryIds.push(item.id);
-
+    this.highlightCoulmn();
     this.sortObject.searchBy.subCategoryId = this.lstSubCategoryIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -737,6 +772,7 @@ else{
     items.forEach(element => {
       this.lstSubCategoryIds.push(element.id);
     });
+    this.highlightCoulmn();
     this.sortObject.searchBy.subCategoryId = this.lstSubCategoryIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -746,6 +782,7 @@ else{
   onSubCategoryDeselect(item: any) {
     this.selectAll=false;
     this.notSelected=false;
+    this.highlightCoulmn();
     const index = this.lstSubCategoryIds.indexOf(item.id);
     if (index !== -1) {
       this.lstSubCategoryIds.splice(index, 1);
@@ -760,6 +797,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.lstSubCategoryIds = [];
+    this.highlightCoulmn();
     this.sortObject.searchBy.subCategoryId = this.lstSubCategoryIds;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -773,7 +811,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.lstModels.push(item.model);
-
+    this.highlightCoulmn();
     this.sortObject.searchBy.model = this.lstModels;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -786,6 +824,7 @@ else{
     items.forEach(element => {
       this.lstModels.push(element.model);
     });
+    this.highlightCoulmn();
     this.sortObject.searchBy.model = this.lstModels;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -799,6 +838,7 @@ else{
     if (index !== -1) {
       this.lstModels.splice(index, 1);
     }
+    this.highlightCoulmn();
     this.sortObject.searchBy.model = this.lstModels;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -809,6 +849,7 @@ else{
     this.selectAll=false;
     this.notSelected=false;
     this.lstModels = [];
+    this.highlightCoulmn();
     this.sortObject.searchBy.model = this.lstModels;
     this.assetDetailService.SortAssetsafterSearch(this.sortObject, this.pageSize,this.pageNumber).subscribe(result => {
       this.lstAssets = result.results;
@@ -816,7 +857,7 @@ else{
     });
   }
   clearSearch(){
-  
+    this.highlightCoulmn();
     this.sortObject.searchBy.brandId=[];
     this.sortObject.searchBy.name=[];
     this.sortObject.searchBy.categoryId=[];

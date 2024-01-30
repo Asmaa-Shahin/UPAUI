@@ -211,6 +211,11 @@ this.listAssetPeriority=data;
       )
 
   }
+  highlightCoulmn(){
+   
+    this.pageNumber=1;
+    this.pageSize=10;
+  }
   clicktbl(event) {
     this.pageNumber = (event.first + 10) / 10;
     this.pageSize = event.rows;
@@ -306,6 +311,7 @@ this.listAssetPeriority=data;
       this.brandIds.splice(index, 1);
     }
     this.sortObject.searchBy.brandId = this.brandIds;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
       .subscribe(data => {
         this.lstMasterAssets = data.results;
@@ -317,6 +323,7 @@ this.listAssetPeriority=data;
   onBrandDeselectAll(event) {
     this.brandIds = [];
     this.sortObject.searchBy.brandId = this.brandIds;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -331,6 +338,7 @@ console.log(item.id);
     this.sortObject.searchBy.brandId = this.brandIds;
     console.log(this.sortObject.searchBy.brandId );
     console.log(this.sortObject);
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -347,6 +355,7 @@ console.log(item.id);
       this.brandIds.push(element.id);
     });
     this.sortObject.searchBy.brandId = this.brandIds;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -362,6 +371,7 @@ console.log(item.id);
     }
     console.log(this.lstNames);
     this.sortObject.searchBy.name = this.lstNames;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
       .subscribe(data => {
         this.lstMasterAssets = data.results;
@@ -373,6 +383,7 @@ console.log(item.id);
   onNameDeselectAll(event) {
     this.lstNames = [];
     this.sortObject.searchBy.name = this.lstNames;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -385,7 +396,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
     this.lstNames.push(item2);
     
     this.sortObject.searchBy.name = this.lstNames;
-  
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -401,6 +412,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
       this.lstNames.push(this.lang=='en'?element.name:element.nameAr);
     });
     this.sortObject.searchBy.name = this.lstNames;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -416,6 +428,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
       this.lstModels.splice(index, 1);
     }
     this.sortObject.searchBy.model = this.lstModels;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
       .subscribe(data => {
         this.lstMasterAssets = data.results;
@@ -427,6 +440,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
   onModelDeselectAll(event) {
     this.lstModels = [];
     this.sortObject.searchBy.model = this.lstModels;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -439,7 +453,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
     this.lstModels.push(item.model);
     
     this.sortObject.searchBy.model = this.lstModels;
-  
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -455,6 +469,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
       this.lstModels.push(element.model);
     });
     this.sortObject.searchBy.model = this.lstModels;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -470,6 +485,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
       this.lstCode.splice(index, 1);
     }
     this.sortObject.searchBy.code = this.lstCode;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
       .subscribe(data => {
         this.lstMasterAssets = data.results;
@@ -481,6 +497,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
   onCodeDeselectAll(event) {
     this.lstCode = [];
     this.sortObject.searchBy.code = this.lstCode;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -493,7 +510,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
     this.lstCode.push(item.code);
     
     this.sortObject.searchBy.code = this.lstCode;
-  
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -509,6 +526,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
       this.lstCode.push(element.code);
     });
     this.sortObject.searchBy.code = this.lstCode;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -523,6 +541,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
       this.assetPeriorityIds.splice(index, 1);
     }
     this.sortObject.searchBy.assetPeriorityId = this.assetPeriorityIds;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
       .subscribe(data => {
         this.lstMasterAssets = data.results;
@@ -534,6 +553,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
   onPeriorityDeselectAll(event) {
     this.assetPeriorityIds = [];
     this.sortObject.searchBy.assetPeriorityId = this.assetPeriorityIds;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -545,7 +565,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
 
     this.assetPeriorityIds.push(item.id);
    this.sortObject.searchBy.assetPeriorityId = this.assetPeriorityIds;
-
+   this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -562,6 +582,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
       this.assetPeriorityIds.push(element.id);
     });
     this.sortObject.searchBy.assetPeriorityId = this.assetPeriorityIds;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -576,6 +597,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
       this.eCRIIds.splice(index, 1);
     }
     this.sortObject.searchBy.eCRIId = this.eCRIIds;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
       .subscribe(data => {
         this.lstMasterAssets = data.results;
@@ -587,6 +609,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
   onECRIDeselectAll(event) {
     this.eCRIIds = [];
     this.sortObject.searchBy.eCRIId = this.eCRIIds;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -598,7 +621,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
 
     this.eCRIIds.push(item.id);
    this.sortObject.searchBy.eCRIId = this.eCRIIds;
-
+   this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -615,6 +638,7 @@ var item2 =this.lang=='en'?item.name:item.nameAr;
       this.eCRIIds.push(element.id);
     });
     this.sortObject.searchBy.eCRIId = this.eCRIIds;
+    this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;
@@ -641,6 +665,7 @@ this.selectedECRIItems='';
 this.selectedModelItems=''
 this.selectedNameItems='';
 this.selectedOriginItems='';
+this.highlightCoulmn();
     this.masterAssetService.SortMasterAssetafterSearch(this.sortObject, this.pageSize,this.pageNumber)
     .subscribe(data => {
       this.lstMasterAssets = data.results;

@@ -17,10 +17,10 @@
             </div>
         </div>
     </div>
-    <div class="card-list">
-        <p-table #dt styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines" showGridlines="true"
+    <div class="card-list" >
+        <p-table #dt [scrollable]="false" styleClass=" p-datatable-sm p-datatable-striped p-datatable-gridlines" showGridlines="true"
             [value]="lstAssets" [paginator]="true" [lazy]="true" [rows]="10" [totalRecords]="count" pageLinks="10"
-            (onLazyLoad)="clicktbl($event)" dataKey="id" [rowHover]="true" >
+            (onLazyLoad)="clicktbl($event)" dataKey="id" [rowHover]="true"[scrollHeight]="'99999px'" [autoLayout]="true" >
             <ng-template pTemplate="header">
                 <tr>
                     <th></th>

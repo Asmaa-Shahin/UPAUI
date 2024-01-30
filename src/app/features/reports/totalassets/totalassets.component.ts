@@ -96,6 +96,11 @@ export class TotalassetsComponent {
 
     this.onLoad();
   }
+  highlightCoulmn(){
+   
+    this.assetcountParam.pageIndex =1;
+    this.assetcountParam.pageSize =10;
+  }
   onLoad() {
     this.governorateService.GetGovernorates().subscribe(govs => {
       this.lstGovernorates = govs;
@@ -142,6 +147,7 @@ export class TotalassetsComponent {
     this.govIds.push(item.id);
 
     this.assetcountParam.govId = this.govIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -151,6 +157,7 @@ export class TotalassetsComponent {
     this.orgIds.push(item.id);
 
     this.assetcountParam.orgId = this.orgIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -160,6 +167,7 @@ export class TotalassetsComponent {
   onBrandSelect(item: any) {
     this.brandIds.push(item.id);
     this.assetcountParam.brandId = this.brandIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -169,6 +177,7 @@ export class TotalassetsComponent {
   onCategorySelect(item: any) {
     this.categoryIds.push(item.id);
     this.assetcountParam.categoryId = this.categoryIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -179,6 +188,7 @@ export class TotalassetsComponent {
   onCountSelect(item: any) {
     this.countIds.push(item.name);
     this.assetcountParam.count = this.countIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -187,10 +197,11 @@ export class TotalassetsComponent {
 
   }
   onSelectAll(items: any) {
-    items.array.forEach(element => {
+    items.forEach(element => {
       this.govIds.push(element.id);
     });
     this.assetcountParam.govId = this.govIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -198,11 +209,12 @@ export class TotalassetsComponent {
   }
   onOrgSelectAll(items: any) {
 
-    items.array.forEach(element => {
+    items.forEach(element => {
       this.orgIds.push(element.id);
     });
 
     this.assetcountParam.orgId = this.orgIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -210,22 +222,24 @@ export class TotalassetsComponent {
   }
   onBrandSelectAll(items: any) {
 
-    items.array.forEach(element => {
+    items.forEach(element => {
       this.brandIds.push(element.id);
     });
     this.assetcountParam.brandId = this.brandIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
     });
   }
   onCategorySelectAll(items: any) {
-    items.array.forEach(element => {
+    items.forEach(element => {
       this.categoryIds.push(element.id);
     });
 
 
     this.assetcountParam.categoryId = this.categoryIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -233,10 +247,11 @@ export class TotalassetsComponent {
     })
   }
   onCountSelectAll(items: any) {
-    items.array.forEach(element => {
+    items.forEach(element => {
       this.countIds.push(element.id);
     });
     this.assetcountParam.count = this.countIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -249,6 +264,7 @@ export class TotalassetsComponent {
       this.govIds.splice(index, 1);
     }
     this.assetcountParam.govId = this.govIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -261,6 +277,7 @@ export class TotalassetsComponent {
       this.orgIds.splice(index, 1);
     }
     this.assetcountParam.orgId = this.orgIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -273,6 +290,7 @@ export class TotalassetsComponent {
       this.brandIds.splice(index, 1);
     }
     this.assetcountParam.brandId = this.brandIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
 
       this.lstCountOfAssets = result.results;
@@ -288,6 +306,7 @@ export class TotalassetsComponent {
       this.categoryIds.splice(index, 1);
     }
     this.assetcountParam.categoryId = this.categoryIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
       this.count = result.count;
@@ -299,6 +318,7 @@ export class TotalassetsComponent {
       this.countIds.splice(index, 1);
     }
     this.assetcountParam.count = this.countIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
 
       this.lstCountOfAssets = result.results;
@@ -311,6 +331,7 @@ export class TotalassetsComponent {
   onDeselectAll() {
     this.govIds = [];
     this.assetcountParam.govId = this.govIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
 
       this.lstCountOfAssets = result.results;
@@ -320,6 +341,7 @@ export class TotalassetsComponent {
   onOrgDeselectAll() {
     this.orgIds = [];
     this.assetcountParam.orgId = this.orgIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
     })
@@ -327,6 +349,7 @@ export class TotalassetsComponent {
   onBrandDeselectAll() {
     this.brandIds = [];
     this.assetcountParam.brandId = this.brandIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
     });
@@ -334,6 +357,7 @@ export class TotalassetsComponent {
   onCategoryDeselectAll() {
     this.categoryIds = [];
     this.assetcountParam.categoryId = this.categoryIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
     });
@@ -341,11 +365,13 @@ export class TotalassetsComponent {
   onCountDeselectAll() {
     this.countIds = [];
     this.assetcountParam.count = this.countIds;
+    this.highlightCoulmn();
     this.countAssetsService.FilterCountOfAssets(this.assetcountParam).subscribe(result => {
       this.lstCountOfAssets = result.results;
     });
   }
   clear(table: Table) {
+    this.highlightCoulmn();
     table.clear();
   }
 

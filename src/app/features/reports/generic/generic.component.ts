@@ -894,7 +894,7 @@ if (elem === "SubOrganization" || elem === "المؤسسه الفرعيه" ) {
           this.sortObject.assetNameAr = event.currentTarget.id;
           this.sortObject.sortBy = event.currentTarget.id;
           break;
-        case 'الباركود':
+        case 'الكود':
           this.sortObject.sortBy = event.currentTarget.id;
           break;
         case 'السيريال':
@@ -919,7 +919,7 @@ if (elem === "SubOrganization" || elem === "المؤسسه الفرعيه" ) {
           this.sortObject.assetName = event.currentTarget.id;
           this.sortObject.sortBy = event.currentTarget.id;
           break;
-        case 'Barcode':
+        case 'Code':
           this.sortObject.sortBy = event.currentTarget.id;
           break;
         case 'Serial':
@@ -971,7 +971,7 @@ if (elem === "SubOrganization" || elem === "المؤسسه الفرعيه" ) {
           this.sortObject.assetNameAr = event.currentTarget.id;
           this.sortObject.sortBy = event.currentTarget.id;
           break;
-        case 'الباركود':
+        case 'الكود':
           this.sortObject.sortBy = event.currentTarget.id;
           break;
         case 'السيريال':
@@ -996,7 +996,7 @@ if (elem === "SubOrganization" || elem === "المؤسسه الفرعيه" ) {
           this.sortObject.assetName = event.currentTarget.id;
           this.sortObject.sortBy = event.currentTarget.id;
           break;
-        case 'Barcode':
+        case 'Code':
           this.sortObject.sortBy = event.currentTarget.id;
           break;
         case 'Serial':

@@ -6,6 +6,7 @@ import { ViewErrorComponent } from './shared/error/view-error/view-error.compone
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  
   { path: 'errors', component: ViewErrorComponent },
   {
     path: 'dash', canActivate:[AuthGuard],loadChildren: () => import('src/app/dashboard/dashboard.module').then(m => m.DashboardModule)
