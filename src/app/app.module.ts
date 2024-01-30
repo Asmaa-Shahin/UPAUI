@@ -205,10 +205,13 @@ DeleteModule
 export class AppModule { 
 
   constructor(private errorService: ErrorService, private route: Router) {
+
     this.errorService.validateMacAddress().subscribe(validMac => {
-      //this.route.navigate(['']);
+      console.log(validMac);
+      this.route.navigate(['/login']);
     },
       error => {
+        console.log("no");
         this.route.navigate(['/errors']);
       });
   }
